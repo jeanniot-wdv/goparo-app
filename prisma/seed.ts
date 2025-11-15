@@ -1,6 +1,6 @@
 // frontend/prisma/seed.ts
 // Script de seed pour initialiser la base de données avec des données de test
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@/generated/prisma'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
