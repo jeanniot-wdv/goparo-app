@@ -113,6 +113,10 @@
 }
 
 @layer base {
+  :root {
+    --primary: 217 91% 60%; /* Bleu par défaut */
+    /* Changez pour votre couleur de marque */
+  }
   * {
     @apply border-border outline-ring/50;
   }
