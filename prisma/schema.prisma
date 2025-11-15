@@ -1,0 +1,381 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// MODÈLES PRINCIPAUX
+// ============================================
+
+model Garage {
+  id                    String   @id @default(uuid())
+  nom                   String
+  slug                  String   @unique // garage-dupont
+  siret                 String   @unique
+  adresse               String
+  codePostal            String
+  ville                 String
+  email                 String
+  telephone             String
+  numeroTVA             String?
+  logo                  String?
+  
+  // Configuration facturation
+  tarifHoraire          Decimal  @default(50) @db.Decimal(10, 2)
+  prefixeFacture        String   @default("FA")
+  prefixeDevis          String   @default("DE")
+  prochainNumeroFacture Int      @default(1)
+  prochainNumeroDevis   Int      @default(1)
+  
+  // Modules activés
+  subscriptionPlan      Plan     @default(FREE)
+  moduleVitrine         Boolean  @default(false)
+  modulePieces          Boolean  @default(false)
+  moduleComptaPro       Boolean  @default(false)
+  modulePlanning        Boolean  @default(false)
+  moduleVenteVehicules  Boolean  @default(false)
+  
+  // Limites plan gratuit
+  limiteFacutresMois    Int      @default(20)
+  limiteUtilisateurs    Int      @default(1)
+  limiteStockageMo      Int      @default(100)
+  
+  // Domaine personnalisé
+  domaineCustom         String?  @unique
+  domaineVerifie        Boolean  @default(false)
+  
+  // Abonnement Stripe
+  stripeCustomerId      String?  @unique
+  stripeSubscriptionId  String?
+  subscriptionStatus    SubscriptionStatus @default(TRIAL)
+  trialEndsAt           DateTime?
+  
+  // Relations
+  users                 User[]
+  clients               Client[]
+  vehicules             Vehicule[]
+  factures              Facture[]
+  pieces                Piece[]
+  actualites            Actualite[]
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@index([slug])
+  @@index([stripeCustomerId])
+}
+
+enum Plan {
+  FREE
+  STARTER
+  ESSENTIEL
+  PROFESSIONNEL
+  PREMIUM
+  CUSTOM
+}
+
+enum SubscriptionStatus {
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  INCOMPLETE
+}
+
+// ============================================
+// UTILISATEURS & AUTHENTIFICATION
+// ============================================
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password      String   // Hash bcrypt
+  nom           String
+  prenom        String
+  role          Role     @default(MECANICIEN)
+  actif         Boolean  @default(true)
+  
+  garageId      String
+  garage        Garage   @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  // Sécurité
+  lastLoginAt   DateTime?
+  emailVerified Boolean  @default(false)
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([garageId])
+  @@index([email])
+}
+
+enum Role {
+  ADMIN
+  MECANICIEN
+  COMPTABLE
+  SECRETARIAT
+}
+
+// ============================================
+// CLIENTS & VÉHICULES
+// ============================================
+
+model Client {
+  id            String      @id @default(uuid())
+  civilite      String?     // M., Mme, Autre
+  nom           String
+  prenom        String
+  email         String?
+  telephone     String
+  adresse       String?
+  codePostal    String?
+  ville         String?
+  
+  // Notes internes
+  notes         String?
+  
+  garageId      String
+  garage        Garage      @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  vehicules     Vehicule[]
+  factures      Facture[]
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([garageId])
+  @@index([email])
+  @@index([telephone])
+}
+
+model Vehicule {
+  id                String      @id @default(uuid())
+  immatriculation   String
+  marque            String
+  modele            String
+  annee             Int?
+  couleur           String?
+  vin               String?     // Numéro de série
+  kilometrage       Int?
+  dateMiseCirculation DateTime?
+  
+  // Notes techniques
+  notes             String?
+  
+  clientId          String
+  client            Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  garageId          String
+  garage            Garage      @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  factures          Facture[]
+  
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([garageId])
+  @@index([clientId])
+  @@index([immatriculation])
+}
+
+// ============================================
+// FACTURATION
+// ============================================
+
+model Facture {
+  id                String          @id @default(uuid())
+  numero            String          @unique // FA-2025-0001
+  type              TypeFacture     @default(FACTURE)
+  statut            StatutFacture   @default(BROUILLON)
+  
+  dateEmission      DateTime        @default(now())
+  dateEcheance      DateTime?
+  datePaiement      DateTime?
+  
+  // Relations
+  clientId          String
+  client            Client          @relation(fields: [clientId], references: [id])
+  
+  vehiculeId        String?
+  vehicule          Vehicule?       @relation(fields: [vehiculeId], references: [id])
+  
+  garageId          String
+  garage            Garage          @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  // Détails
+  lignes            LigneFacture[]
+  
+  // Main d'œuvre
+  heuresTravail     Decimal         @default(0) @db.Decimal(10, 2)
+  tarifHoraire      Decimal         @db.Decimal(10, 2)
+  
+  // Totaux (calculés mais stockés pour performance)
+  totalHT           Decimal         @db.Decimal(10, 2)
+  totalTVA          Decimal         @db.Decimal(10, 2)
+  totalTTC          Decimal         @db.Decimal(10, 2)
+  
+  // Paiement
+  modePaiement      String?         // CB, Espèces, Chèque, Virement
+  
+  // Notes et conditions
+  notes             String?
+  conditionsReglement String?
+  
+  // Conversion devis → facture
+  devisOrigineId    String?
+  
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([garageId])
+  @@index([clientId])
+  @@index([numero])
+  @@index([statut])
+  @@index([dateEmission])
+}
+
+enum TypeFacture {
+  DEVIS
+  FACTURE
+}
+
+enum StatutFacture {
+  BROUILLON
+  ENVOYE
+  ACCEPTE    // Pour devis
+  REFUSE     // Pour devis
+  PAYE
+  PARTIELLEMENT_PAYE
+  EN_RETARD
+  ANNULE
+}
+
+model LigneFacture {
+  id            String   @id @default(uuid())
+  
+  factureId     String
+  facture       Facture  @relation(fields: [factureId], references: [id], onDelete: Cascade)
+  
+  ordre         Int      @default(0) // Pour l'ordre d'affichage
+  type          TypeLigne @default(PIECE)
+  designation   String
+  quantite      Decimal   @db.Decimal(10, 3)
+  prixUnitaireHT Decimal  @db.Decimal(10, 2)
+  tauxTVA       Decimal   @default(20) @db.Decimal(5, 2)
+  
+  // Totaux calculés
+  totalHT       Decimal   @db.Decimal(10, 2)
+  totalTVA      Decimal   @db.Decimal(10, 2)
+  totalTTC      Decimal   @db.Decimal(10, 2)
+  
+  // Référence pièce (optionnel)
+  pieceId       String?
+  piece         Piece?    @relation(fields: [pieceId], references: [id])
+  
+  createdAt     DateTime  @default(now())
+
+  @@index([factureId])
+}
+
+enum TypeLigne {
+  PIECE
+  MAIN_OEUVRE
+  FORFAIT
+  REMISE
+}
+
+// ============================================
+// GESTION PIÈCES
+// ============================================
+
+model Piece {
+  id                String          @id @default(uuid())
+  reference         String
+  designation       String
+  description       String?
+  
+  // Prix
+  prixAchatHT       Decimal         @db.Decimal(10, 2)
+  prixVenteHT       Decimal         @db.Decimal(10, 2)
+  tauxTVA           Decimal         @default(20) @db.Decimal(5, 2)
+  margePercentage   Decimal?        @db.Decimal(5, 2)
+  
+  // Stock
+  stock             Int             @default(0)
+  stockMin          Int             @default(0)
+  stockMax          Int?
+  
+  // Catégorie
+  categorie         String?         // Filtres, Plaquettes, Huiles...
+  
+  garageId          String
+  garage            Garage          @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  lignesFacture     LigneFacture[]
+  
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([garageId])
+  @@index([reference])
+  @@index([stock])
+  @@unique([garageId, reference])
+}
+
+// ============================================
+// SITE VITRINE
+// ============================================
+
+model Actualite {
+  id            String   @id @default(uuid())
+  titre         String
+  slug          String   // pour URL friendly
+  contenu       String   @db.Text
+  extrait       String?  // Court résumé
+  image         String?  // URL image
+  
+  publie        Boolean  @default(false)
+  datePublication DateTime?
+  
+  garageId      String
+  garage        Garage   @relation(fields: [garageId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([garageId])
+  @@index([publie])
+  @@unique([garageId, slug])
+}
+
+// ============================================
+// AUDIT & LOGS (optionnel mais recommandé)
+// ============================================
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  garageId      String
+  userId        String?
+  action        String   // CREATE_FACTURE, UPDATE_CLIENT, etc.
+  entityType    String   // Facture, Client, etc.
+  entityId      String
+  details       Json?    // Données de l'action
+  ipAddress     String?
+  
+  createdAt     DateTime @default(now())
+
+  @@index([garageId])
+  @@index([userId])
+  @@index([createdAt])
+}
