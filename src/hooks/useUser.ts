@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export interface User {
   id: string
@@ -33,7 +33,7 @@ export function useUser() {
         if (data.success) {
           setUser(data.user)
         } else {
-          router.push('/login')
+          router.push('/')
         }
       } catch (error) {
         console.error('Error fetching user:', error)

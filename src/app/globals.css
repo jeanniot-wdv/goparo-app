@@ -4,10 +4,107 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* TES COULEURS PRINCIPALES - Mapping sur shadcn variables */
+  --color-primary: #7C3AED;        /* Violet/600 ⭐ PRINCIPAL */
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F97316;      /* Orange/500 ⭐ ACCENT */
+  --color-secondary-foreground: #FFFFFF;
+  --color-accent: #F97316;         /* Orange/500 */
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #EF4444;    /* Red/500 erreurs */
+  --color-destructive-foreground: #FFFFFF;
+  --color-success: #10B981;        /* Emerald/500 ⭐ SUCCESS */
+  --color-success-foreground: #FFFFFF;
+  
+  /* TES PALETTES COMPLÈTES */
+  --color-violet-50: #FAF5FF;
+  --color-violet-100: #F3E8FF;
+  --color-violet-200: #E9D5FF;
+  --color-violet-300: #D8B4FE;
+  --color-violet-400: #C084FC;
+  --color-violet-500: #A855F7;
+  --color-violet-600: #7C3AED;     /* ⭐ PRINCIPAL */
+  --color-violet-700: #6D28D9;     /* Hover */
+  --color-violet-800: #5B21B6;
+  --color-violet-900: #4C1D95;     /* Texte sur violet */
+  --color-violet-950: #2E1065;
+
+  --color-emerald-50: #ECFDF5;
+  --color-emerald-100: #D1FAE5;
+  --color-emerald-500: #10B981;    /* ⭐ SUCCESS */
+  --color-emerald-600: #059669;
+
+  --color-orange-50: #FFF7ED;
+  --color-orange-100: #FFEDD5;
+  --color-orange-200: #FED7AA;
+  --color-orange-300: #FDBA74;
+  --color-orange-400: #FB923C;
+  --color-orange-500: #F97316;     /* ⭐ ACCENT */
+  --color-orange-600: #EA580C;     /* Hover */
+  --color-orange-700: #C2410C;
+  --color-orange-800: #9A3412;
+  --color-orange-900: #7C2D12;
+
+  --color-slate-50: #F8FAFC;       /* BG principal */
+  --color-slate-100: #F1F5F9;
+  --color-slate-200: #E2E8F0;      /* Borders */
+  --color-slate-400: #94A3B8;      /* Placeholders/secondaires */
+  --color-slate-600: #475569;      /* Body */
+  --color-slate-800: #1E293B;      /* Sous-titres */
+  --color-slate-900: #0F172A;      /* Titres */
+
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* TYPO - Poppins par défaut */
+  --font-sans: var(--font-poppins);
+  
+  /* RADIUS PERSONNALISÉS */
+  --radius-sm: 8px;
+  --radius-base: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* SHADOWS COLORÉS */
+  --shadow-violet-glow: 0 8px 24px rgba(124, 58, 237, 0.3);
+  --shadow-orange-glow: 0 8px 24px rgba(249, 115, 22, 0.3);
+
+  /* SPACING */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-base: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  --spacing-5xl: 128px;
+
+  /* TYPO SIZES */
+  --font-size-h1-desktop: 72px;
+  --line-height-h1-desktop: 1.1;
+  --letter-spacing-h1-desktop: -2%;
+  --font-size-h1-mobile: 48px;
+  --font-size-h2: 48px;
+  --font-size-h3: 32px;
+  --font-size-h4: 24px;
+  --font-size-label-lg: 16px;
+  --font-size-label-md: 14px;
+  --font-size-label-sm: 12px;
+  --font-size-body-lg: 20px;
+  --font-size-body: 18px;
+  --font-size-body-base: 16px;
+  --font-size-body-sm: 14px;
+  --font-size-btn-lg: 18px;
+  --font-size-btn-md: 16px;
+  --font-size-btn-sm: 14px;
+
+  /* Sidebar & autres existants */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -24,15 +121,8 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -45,21 +135,27 @@
 
 :root {
   --radius: 0.625rem;
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-geist-sans: system-ui, -apple-system, sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Couleurs light (tes valeurs OKLCH existantes) */
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
+  --primary: #7C3AED;              /* Override hex pour violet-600 */
+  --primary-foreground: #FFFFFF;
+  --secondary: #F97316;            /* Override hex pour orange-500 */
+  --secondary-foreground: #FFFFFF;
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
+  --accent: #F97316;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
   --border: oklch(0.929 0.013 255.508);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
@@ -70,30 +166,31 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-primary: #7C3AED;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F97316;
+  --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
 }
 
 .dark {
+  /* Dark mode - tes valeurs existantes + overrides */
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --card: #7C3AED;                 /* Violet/600 en bg card dark */
+  --card-foreground: #FFFFFF;
+  --popover: #7C3AED;
+  --popover-foreground: #FFFFFF;
+  --primary: #D8B4FE;              /* Violet/300 light en dark */
+  --primary-foreground: #1E293B;   /* Slate/800 */
+  --secondary: #FED7AA;            /* Orange/200 */
+  --secondary-foreground: #1E293B;
   --muted: oklch(0.279 0.041 260.031);
   --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
+  --accent: #FED7AA;
+  --accent-foreground: #1E293B;
+  --destructive: #EF4444;
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);
@@ -102,20 +199,19 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar: #7C3AED;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #D8B4FE;
+  --sidebar-primary-foreground: #1E293B;
+  --sidebar-accent: #FED7AA;
+  --sidebar-accent-foreground: #1E293B;
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
 @layer base {
   :root {
-    --primary: 217 91% 60%; /* Bleu par défaut */
-    /* Changez pour votre couleur de marque */
+    font-family: var(--font-poppins), system-ui, sans-serif;
   }
   * {
     @apply border-border outline-ring/50;
@@ -123,4 +219,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-violet-600), var(--color-violet-900));
 }

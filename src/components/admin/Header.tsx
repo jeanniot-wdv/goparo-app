@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export function Header({ user }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white px-6">
+    <header className="sticky justify-between top-0 z-30 flex h-16 items-center gap-4 border-b bg-white px-6">
       {/* Barre de recherche */}
       <div className="flex-1 max-w-md">
         <div className="relative">

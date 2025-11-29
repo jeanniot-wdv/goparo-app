@@ -1,65 +1,237 @@
-import Image from "next/image";
+// src/app/page.tsx
 
-export default function Home() {
+import Link from "next/link";
+import Header from "@/components/marketing/Header";
+import Footer from "@/components/marketing/Footer";
+import TitleBody from "@/components/marketing/TitleBody";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Check,
+  Wrench,
+  Calendar,
+  Users,
+  FileText,
+  ArrowRight,
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import Hero from "@/components/marketing/Hero";
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <div className="">
+      {/* HERO SECTION */}
+      <Header />
+
+      {/* HERO LARGE */}
+      <Hero />
+
+      {/* SECTION FONCTIONNALITÉS */}
+      <section
+        id="features"
+        className="bg-white flex flex-col items-center justify-center gap-12 py-10 sm:py-20"
+      >
+        <div className="container flex flex-col lg:flex-row px-5 sm:px-0 items-center gap-12">
+          <div className="flex lg:w-1/2">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="images/img-feature-1.svg"
+              alt="Features"
+              width={800}
+              height={600}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <div className="flex flex-col gap-12 lg:w-1/2">
+            <TitleBody text="Accessible depuis ordinateur, tablette ou mobile, Goparo fonctionne sans installation. Votre garage reste opérationnel partout : bureau, atelier ou déplacement. Un SaaS simple, flexible et toujours à jour.">
+              Accessible partout,{" "}
+              <span className="text-emerald-500">
+                aucun logiciel à installer
+              </span>
+            </TitleBody>
+            <TitleBody text="Goparo vous prépare dès maintenant à la réforme 2026 : factures conformes, archivage sécurisé et exports normalisés. Restez en règle sans effort et évitez les risques de non-conformité.">
+              Facturation électronique 2026{" "}
+              <span className="text-orange-500">conforme</span>
+            </TitleBody>
+          </div>
         </div>
-      </main>
+
+        <div className="container flex flex-col lg:flex-row px-5 sm:px-0 items-center gap-12">
+          <div className="flex lg:w-1/2">
+            <Image
+              src="images/img-feature-1.svg"
+              alt="Features"
+              width={800}
+              height={600}
+            />
+          </div>
+          <div className="flex flex-col lg:order-first gap-12 lg:w-1/2">
+            <TitleBody text="Vos données sont chiffrées, sauvegardées et hébergées en France, garantissant confidentialité et conformité RGPD. Accédez-y à tout moment en toute sécurité, où que vous soyez.">
+              Données sécurisées et hébergées{" "}
+              <span className="text-emerald-500">en France</span>
+            </TitleBody>
+            <TitleBody text="Présentez vos services, promotions et véhicules en quelques clics. Gagnez en visibilité, attirez plus de clients et gérez facilement votre image en ligne depuis Goparo.">
+              Votre <span className="text-orange-500">site web inclus </span> et
+              100% administrable
+            </TitleBody>
+          </div>
+        </div>
+
+        <Link href="/register">
+          <Button size="lg">Commencer gratuitement</Button>
+        </Link>
+      </section>
+
+      {/* SECTION POURQUOI */}
+      <section id="details" className="py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-4xl font-light mb-12 text-center">
+            Un outil complet pour votre atelier
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-16">
+            <div className="space-y-6">
+              <FeatureItem
+                title="Site web intégré"
+                text="Un site vitrine personnalisable avec vos services, infos, contact et actualités. Exemple : garage-votreville.goparo.com"
+              />
+              <FeatureItem
+                title="Interface moderne & rapide"
+                text="Pensée pour les mécaniciens : simple, claire, aucune complication."
+              />
+              <FeatureItem
+                title="Historique complet"
+                text="Retrouvez chaque facture, intervention, document ou suivi d'entretien en un clic."
+              />
+              <FeatureItem
+                title="Personnalisation admin"
+                text="Couleurs, infos, logo, horaires, page d’accueil du site — tout se configure facilement (inclus dans l’abonnement)."
+              />
+            </div>
+
+            <div className="bg-blue-100 rounded-3xl h-80 shadow-inner" />
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION TARIFS */}
+      <section
+        id="pricing"
+        className="py-24 bg-gray-100 border-t border-gray-300"
+      >
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-4xl font-light text-center mb-16">
+            Tarification
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            <PricingCard
+              title="Starter"
+              price="19€/mois"
+              features={[
+                "Gestion clients",
+                "Gestion factures",
+                "Suivi véhicules",
+                "Site vitrine inclus",
+              ]}
+            />
+
+            <PricingCard
+              highlighted
+              title="Pro"
+              price="29€/mois"
+              features={[
+                "Tout le Starter",
+                "Exports comptables",
+                "Personnalisation complète",
+                "Support prioritaire",
+              ]}
+            />
+
+            <PricingCard
+              title="Option Planning"
+              price="+9€/mois"
+              features={[
+                "Planning mécaniciens",
+                "Rendez-vous clients",
+                "Gestion tâches atelier",
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
+  );
+}
+
+function FeatureItem({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="flex gap-4 items-start">
+      <Check className="text-blue-600 mt-1" />
+      <div>
+        <h3 className="text-lg font-semibold">{title}</h3>
+        <p className="text-gray-600 font-light text-sm">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function PricingCard({
+  title,
+  price,
+  features,
+  highlighted,
+}: {
+  title: string;
+  price: string;
+  features: string[];
+  highlighted?: boolean;
+}) {
+  return (
+    <Card
+      className={`rounded-3xl shadow-sm border-gray-200 ${
+        highlighted ? "bg-blue-600 text-white" : ""
+      }`}
+    >
+      <CardHeader>
+        <CardTitle className="text-center text-2xl font-light">
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="text-center">
+        <p
+          className={`text-3xl font-semibold mb-6 ${
+            highlighted ? "text-white" : "text-blue-700"
+          }`}
+        >
+          {price}
+        </p>
+        <div className="space-y-3">
+          {features.map((f) => (
+            <div
+              key={f}
+              className="flex items-center justify-center gap-2 text-sm"
+            >
+              <Check
+                className={`${highlighted ? "text-white" : "text-blue-600"}`}
+                size={16}
+              />
+              <span className="font-light">{f}</span>
+            </div>
+          ))}
+        </div>
+        <Link href="/register">
+          <Button
+            className={`mt-8 w-full rounded-xl ${
+              highlighted ? "bg-white text-blue-700" : "bg-blue-600 text-white"
+            }`}
+          >
+            S'inscrire
+          </Button>
+        </Link>
+      </CardContent>
+    </Card>
   );
 }
