@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Header from "@/components/marketing/Header";
 import Footer from "@/components/marketing/Footer";
-import TitleBody from "@/components/marketing/TitleBody";
+import TitleItem from "@/components/marketing/TitleItem";
+import FeatureItem from "@/components/marketing/FeatureItem";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,16 +43,16 @@ export default function HomePage() {
             />
           </div>
           <div className="flex flex-col gap-12 lg:w-1/2">
-            <TitleBody text="Accessible depuis ordinateur, tablette ou mobile, Goparo fonctionne sans installation. Votre garage reste opérationnel partout : bureau, atelier ou déplacement. Un SaaS simple, flexible et toujours à jour.">
+            <TitleItem text="Accessible depuis ordinateur, tablette ou mobile, Goparo fonctionne sans installation. Votre garage reste opérationnel partout : bureau, atelier ou déplacement. Un SaaS simple, flexible et toujours à jour.">
               Accessible partout,{" "}
               <span className="text-emerald-500">
                 aucun logiciel à installer
               </span>
-            </TitleBody>
-            <TitleBody text="Goparo vous prépare dès maintenant à la réforme 2026 : factures conformes, archivage sécurisé et exports normalisés. Restez en règle sans effort et évitez les risques de non-conformité.">
+            </TitleItem>
+            <TitleItem text="Goparo vous prépare dès maintenant à la réforme 2026 : factures conformes, archivage sécurisé et exports normalisés. Restez en règle sans effort et évitez les risques de non-conformité.">
               Facturation électronique 2026{" "}
               <span className="text-orange-500">conforme</span>
-            </TitleBody>
+            </TitleItem>
           </div>
         </div>
 
@@ -65,14 +66,20 @@ export default function HomePage() {
             />
           </div>
           <div className="flex flex-col lg:order-first gap-12 lg:w-1/2">
-            <TitleBody text="Vos données sont chiffrées, sauvegardées et hébergées en France, garantissant confidentialité et conformité RGPD. Accédez-y à tout moment en toute sécurité, où que vous soyez.">
+            <TitleItem text="Vos données sont chiffrées, sauvegardées et hébergées en France, garantissant confidentialité et conformité RGPD. Accédez-y à tout moment en toute sécurité, où que vous soyez.">
               Données sécurisées et hébergées{" "}
               <span className="text-emerald-500">en France</span>
-            </TitleBody>
-            <TitleBody text="Présentez vos services, promotions et véhicules en quelques clics. Gagnez en visibilité, attirez plus de clients et gérez facilement votre image en ligne depuis Goparo.">
-              Votre <span className="text-orange-500">site web inclus </span> et
-              100% administrable
-            </TitleBody>
+            </TitleItem>
+            <div>
+              <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 rounded-full font-semibold">
+                Exlusivité Goparo
+              </Badge>
+
+              <TitleItem text="Présentez vos services, promotions et véhicules en quelques clics. Gagnez en visibilité, attirez plus de clients et gérez facilement votre image en ligne depuis Goparo.">
+                Votre <span className="text-orange-500">site web inclus </span>{" "}
+                et 100% administrable
+              </TitleItem>
+            </div>
           </div>
         </div>
 
@@ -82,33 +89,36 @@ export default function HomePage() {
       </section>
 
       {/* SECTION POURQUOI */}
-      <section id="details" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-light mb-12 text-center">
-            Un outil complet pour votre atelier
-          </h2>
+      <section id="why" className="px-5 sm:px-0">
 
-          <div className="grid md:grid-cols-2 gap-16">
-            <div className="space-y-6">
-              <FeatureItem
-                title="Site web intégré"
-                text="Un site vitrine personnalisable avec vos services, infos, contact et actualités. Exemple : garage-votreville.goparo.com"
-              />
-              <FeatureItem
-                title="Interface moderne & rapide"
-                text="Pensée pour les mécaniciens : simple, claire, aucune complication."
-              />
-              <FeatureItem
-                title="Historique complet"
-                text="Retrouvez chaque facture, intervention, document ou suivi d'entretien en un clic."
-              />
-              <FeatureItem
-                title="Personnalisation admin"
-                text="Couleurs, infos, logo, horaires, page d’accueil du site — tout se configure facilement (inclus dans l’abonnement)."
-              />
-            </div>
+        <div className="container bg-linear-to-br from-orange-500 to-orange-400 text-white text-center mx-auto rounded-3xl px-5 sm:px-10 py-10 sm:py-15">
+          
+          <div className="lg:w-3/4 mx-auto mb-6 lg:mb-12">
+            <Badge className="bg-white text-orange-500 px-4 py-2 mb-2 rounded-full font-semibold">
+              Conçu pour les garages
+            </Badge>
+            <TitleItem text="Conçu spécifiquement pour les garages — simple à prendre en main, complet dans les fonctions, et conforme aux normes les plus strictes.">
+              Pourquoi choisir Goparo ?
+            </TitleItem>
+          </div>
 
-            <div className="bg-blue-100 rounded-3xl h-80 shadow-inner" />
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-10 mx-auto xl:w-4/5">
+            <FeatureItem
+              title="Conformité légale garantie"
+              text="Goparo respecte toutes les exigences de la facturation électronique obligatoire (DGFiP 2026). Formats structurés, archivage légal, QR-codes règlementaires, suivi TVA automatique. Aucune mise à jour technique à prévoir : vous êtes protégé."
+            />
+            <FeatureItem
+              title="Site web professionnel inclus"
+              text="Le seul logiciel garage qui génère automatiquement votre site internet et le met à jour en temps réel. Bannières, services, actualités, véhicules à vendre : tout est synchronisé depuis votre back-office. Sous-domaine personnalisé inclus, domaine custom en option."
+            />
+            <FeatureItem
+              title="Accès comptable dédié"
+              text="Votre expert-comptable accède directement à vos factures. Exports automatiques vers Sage, EBP, ACD. Formats FEC, CSV, PDF. Vos données comptables sont prêtes en un clic chaque mois."
+            />
+            <FeatureItem
+              title="Publication automatique des véhicules"
+              text="Ajoutez un véhicule VO/VN dans Goparo, et il apparaît instantanément sur votre site vitrine avec photos, détails techniques, prix et formulaire de contact. Zéro double saisie, gain de temps maximal."
+            />
           </div>
         </div>
       </section>
@@ -162,18 +172,6 @@ export default function HomePage() {
 
       {/* FOOTER */}
       <Footer />
-    </div>
-  );
-}
-
-function FeatureItem({ title, text }: { title: string; text: string }) {
-  return (
-    <div className="flex gap-4 items-start">
-      <Check className="text-blue-600 mt-1" />
-      <div>
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-gray-600 font-light text-sm">{text}</p>
-      </div>
     </div>
   );
 }

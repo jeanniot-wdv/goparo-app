@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 export default function Hero() {
   return (
     <section
-      className="sm:flex -mt-5 bg-linear-to-tl from-violet-700 to-violet-900 py-10 lg:py-20 px-8 md:pl-20 md:px-0 gap-10 items-center"
+      className="sm:flex -mt-5 bg-linear-to-tl from-violet-700 to-violet-900 py-10 lg:py-20 px-5 sm:px-8 md:pl-20 md:px-0 gap-10 items-center"
       id="hero"
     >
       {/* Left side */}
@@ -33,14 +33,21 @@ export default function Hero() {
           et export comptable. Simple, rapide et 100 % cloud — accessible
           partout, même dans l’atelier.
         </p>
-        <div className="mt-10 flex gap-8">
+        <div className="flex flex-col sm:flex-row mt-10 gap-4 sm:gap-8">
           <Link href="/register">
-            <Button size="lg" className="shadow-lg/50 shadow-white/50 font-medium">
+            <Button
+              size="lg"
+              className="w-full shadow-lg/50 shadow-white/50 font-medium"
+            >
               Commencer gratuitement
             </Button>
           </Link>
           <Link href="#features">
-            <Button variant="outline" size="lg" className="text-white font-medium">
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full text-white font-medium"
+            >
               Contacter notre équipe
             </Button>
           </Link>
