@@ -2,7 +2,7 @@
 
 interface TitleItemProps {
   children: React.ReactNode; // Pour accepter des enfants
-  text: string;
+  text?: string;
 }
 
 export default function TitleItem({ children, text }: TitleItemProps) {
