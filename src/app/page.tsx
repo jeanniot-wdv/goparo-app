@@ -7,26 +7,19 @@ import TitleItem from "@/components/marketing/TitleItem";
 import FeatureItem from "@/components/marketing/FeatureItem";
 import FeaturesSection from "@/components/marketing/FeaturesSection";
 import Stats from "@/components/marketing/stats";
+import FeaturesDetailsSection from "@/components/marketing/FeaturesDetailsSection";
+import PrincingSection from "@/components/marketing/PricingSection";
+import FaqSection from "@/components/marketing/FaqSection";
+import Contact  from "@/components/marketing/Contact";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Check,
-  Wrench,
-  Users,
-  FileText,
-  Car,
-  CalendarCheck,
-  Globe,
-} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Hero from "@/components/marketing/Hero";
 import { success } from "zod";
-import FeaturesDetailsSection from "@/components/marketing/FeaturesDetailsSection";
 
 export default function HomePage() {
   return (
-    <div className="">
+    <>
       {/* HERO SECTION */}
       <Header />
 
@@ -97,7 +90,7 @@ export default function HomePage() {
       <section id="why" className="px-5 sm:px-0">
         <div className="container bg-linear-to-br from-orange-500 to-orange-400 text-white text-center mx-auto rounded-3xl px-5 sm:px-10 py-10 sm:py-15">
           <div className="lg:w-3/4 mx-auto mb-6 lg:mb-12">
-            <Badge className="bg-white text-orange-500 px-4 py-2 mb-2 rounded-full font-semibold">
+            <Badge className="bg-white text-orange-500 px-4 py-2 mb-4 rounded-full font-semibold">
               Conçu pour les garages
             </Badge>
             <TitleItem text="Conçu spécifiquement pour les garages — simple à prendre en main, complet dans les fonctions, et conforme aux normes les plus strictes.">
@@ -221,9 +214,12 @@ export default function HomePage() {
       <Stats />
 
       {/* SECTION FONCTIONNALITÉS DETAILLEES*/}
-      <section className="mt-10 lg:mt-20">
-        <div className="lg:max-w-4/6 text-center mx-auto pb-5 lg:pb-10 px-6">
-          <TitleItem text="De la facturation électronique à la gestion des stocks, découvrez comment chaque outil peut transformer votre activité.">
+      <section className="items-center justify-center my-10 lg:my-20">
+        <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
+          <TitleItem
+            className="sm:w-4/5 lg:w-2/3 mx-auto"
+            text="De la facturation électronique à la gestion des stocks, découvrez comment chaque outil peut transformer votre activité."
+          >
             Découvrez Goparo <span className="text-violet-500">en détail</span>
           </TitleItem>
         </div>
@@ -233,6 +229,26 @@ export default function HomePage() {
 
       {/* SECTION PRICING */}
       <section
+        id="pricing"
+        className="flex justify-center bg-slate-100 py-10 lg:py-20"
+      >
+        <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
+          <Badge className="bg-violet-100 text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
+            Tarification simple et sans surprise
+          </Badge>
+          <TitleItem
+            className="md:w-2/3 mx-auto"
+            text="Sans engagement. Passez à l'offre supérieure à tout moment. Annulation en un clic."
+          >
+            Des tarifs clairs, <span className="text-emerald-500">adaptés</span>{" "}
+            à votre garage
+          </TitleItem>
+
+          <PrincingSection />
+        </div>
+      </section>
+
+      {/* <section
         id="pricing"
         className="py-24 bg-slate-100"
       >
@@ -276,68 +292,44 @@ export default function HomePage() {
             />
           </div>
         </div>
+      </section> */}
+
+      {/* SECTION CTA */}
+      <section className="flex flex-col items-center justify-center bg-emerald-500 text-white py-10 sm:py-20 px-6">
+        <div className="max-w-6xl text-center mx-auto mb-6">
+          <TitleItem text="Rejoignez les garages qui modernisent leur gestion avec Goparo. Commencez gratuitement dès aujourd'hui et découvrez la simplicité d'une solution tout-en-un conçue pour vous.">
+            Prêt à transformer la gestion de votre garage ?
+          </TitleItem>
+        </div>
+        <Link href="/register">
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-white text-white hover:bg-white hover:text-emerald-500"
+          >
+            Commencer gratuitement
+          </Button>
+        </Link>
+      </section>
+
+      {/* SECTION FAQ */}
+      <FaqSection />
+
+      {/* SECTION CONTACT FORM */}
+      <section className="flex flex-col items-center justify-center mb-10 lg:mb-20 px-6">
+        <div className="max-w-6xl text-center mx-auto mb-6">
+          <TitleItem 
+          className="mb-10 lg:mb-15"
+          text="Laissez-nous vos coordonnées, nous vous répondrons sous 24h.">
+            Vous avez une autre{" "}
+            <span className="text-violet-600">question ?</span>
+          </TitleItem>
+        <Contact />
+        </div>
       </section>
 
       {/* FOOTER */}
       <Footer />
-    </div>
-  );
-}
-
-function PricingCard({
-  title,
-  price,
-  features,
-  highlighted,
-}: {
-  title: string;
-  price: string;
-  features: string[];
-  highlighted?: boolean;
-}) {
-  return (
-    <Card
-      className={`rounded-3xl shadow-sm border-gray-200 ${
-        highlighted ? "bg-blue-600 text-white" : ""
-      }`}
-    >
-      <CardHeader>
-        <CardTitle className="text-center text-2xl font-light">
-          {title}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="text-center">
-        <p
-          className={`text-3xl font-semibold mb-6 ${
-            highlighted ? "text-white" : "text-blue-700"
-          }`}
-        >
-          {price}
-        </p>
-        <div className="space-y-3">
-          {features.map((f) => (
-            <div
-              key={f}
-              className="flex items-center justify-center gap-2 text-sm"
-            >
-              <Check
-                className={`${highlighted ? "text-white" : "text-blue-600"}`}
-                size={16}
-              />
-              <span className="font-light">{f}</span>
-            </div>
-          ))}
-        </div>
-        <Link href="/register">
-          <Button
-            className={`mt-8 w-full rounded-xl ${
-              highlighted ? "bg-white text-blue-700" : "bg-blue-600 text-white"
-            }`}
-          >
-            S'inscrire
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
+    </>
   );
 }

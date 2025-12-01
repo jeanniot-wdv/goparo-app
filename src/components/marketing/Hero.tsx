@@ -14,9 +14,9 @@ export default function Hero() {
       {/* Left side */}
       <div className="md:w-3/4 lg:w-1/2 flex flex-col justify-center mt-5">
         <div className="flex flex-wrap gap-4 mb-4">
-          <Badge variant="success">Conforme facturation 2026</Badge>
-          <Badge variant="success">Site web inclus</Badge>
-          <Badge variant="success">Export comptabilité</Badge>
+          <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-2 rounded-full font-semibold">Conforme facturation 2026</Badge>
+          <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-2 rounded-full font-semibold">Site web inclus</Badge>
+          <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-2 rounded-full font-semibold">Export comptabilité</Badge>
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-12 md:leading-16 uppercase">
           Le logiciel de gestion garage <br />

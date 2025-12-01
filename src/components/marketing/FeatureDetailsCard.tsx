@@ -36,7 +36,7 @@ export default function FeatureDetailsCard({
       </CardHeader>
       <CardContent className="">
         <div className="hidden sm:block">{content}</div>
-        <ul className="text-sm font-medium mt-4 space-y-2">
+        <ul className="text-sm font-medium mt-4 space-y-3 leading-snug">
           {features.map((feature) => (
             <li key={feature} className="flex gap-2">
               <CircleCheck className="h-5 w-5 shrink-0 mt-px" />

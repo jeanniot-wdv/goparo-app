@@ -1,49 +1,152 @@
+import { Separator } from "@/components/ui/separator";
+import {
+  DribbbleIcon,
+  GithubIcon,
+  TwitchIcon,
+  TwitterIcon,
+} from "lucide-react";
 import Link from "next/link";
-import { Wrench, FileText, Truck } from "lucide-react";
 
-export default function Footer() {
+const footerSections = [
+  {
+    title: "Solution",
+    links: [
+      {
+        title: "Fonctionnalités",
+        href: "#",
+      },
+      {
+        title: "Tarifs",
+        href: "#",
+      },
+      {
+        title: "Sécurité & Conformité",
+        href: "#",
+      },
+      {
+        title: "Intégrations (Sage, EBP...)",
+        href: "#",
+      },
+      {
+        title: "API Documentation",
+        href: "#",
+      },
+    ],
+  },
+  {
+    title: "Ressources",
+    links: [
+      {
+        title: "Centre d'aide",
+        href: "#",
+      },
+      {
+        title: "Blog / Actualités ",
+        href: "#",
+      },
+      {
+        title: "Guide de démarrage",
+        href: "#",
+      },
+      {
+        title: "Études de cas",
+        href: "#",
+      },
+      {
+        title: "Téléchargements",
+        href: "#",
+      },
+    ],
+  },
+  {
+    title: "Entreprise",
+    links: [
+      {
+        title: "À propos",
+        href: "#",
+      },
+      {
+        title: "Contact",
+        href: "#",
+      },
+      {
+        title: "Devenir partenaire",
+        href: "#",
+      },
+    ],
+  },
+];
+
+const Footer = () => {
   return (
-    <footer className="border-t py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center mb-4">
-              <div className="h-8 w-8 rounded-full bg-primary mr-2" />
-              <span className="font-bold text-xl text-primary">GoParo</span>
+    <footer className="border-t">
+      <div className="max-w-(--breakpoint-xl) mx-auto">
+        <div className="py-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10 px-6">
+          <div className="col-span-full lg:col-span-2 flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-10 lg:gap-4">
+            <div>
+
+            <Link href="/">
+              <img src="images/logo.svg" alt="Goparo Logo" />
+            </Link>
+            <div className="mt-4 flex items-center gap-5 text-muted-foreground">
+              <Link href="#" target="_blank">
+                <TwitterIcon className="h-5 w-5" />
+              </Link>
+              <Link href="#" target="_blank">
+                <DribbbleIcon className="h-5 w-5" />
+              </Link>
+              <Link href="#" target="_blank">
+                <TwitchIcon className="h-5 w-5" />
+              </Link>
+              <Link href="#" target="_blank">
+                <GithubIcon className="h-5 w-5" />
+              </Link>
             </div>
-            <p className="text-sm text-gray-600">
-              La solution tout-en-un pour moderniser la gestion de votre garage automobile.
+            </div>
+
+            <p className="text-muted-foreground">
+              Goparo est la solution SaaS tout-en-un pour les garages automobiles. Facturation conforme 2026, site vitrine automatique, gestion complète de l'atelier.
             </p>
           </div>
-          <div>
-            <h3 className="font-medium mb-4">Produit</h3>
-            <ul className="space-y-2">
-              <li><Link href="#features" className="text-sm text-gray-600 hover:text-primary">Fonctionnalités</Link></li>
-              <li><Link href="#pricing" className="text-sm text-gray-600 hover:text-primary">Tarifs</Link></li>
-              <li><Link href="/contact" className="text-sm text-gray-600 hover:text-primary">Contact</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-medium mb-4">Ressources</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">Documentation</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">Blog</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">FAQ</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-medium mb-4">Légal</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">CGU</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">Politique de confidentialité</Link></li>
-              <li><Link href="#" className="text-sm text-gray-600 hover:text-primary">Mentions légales</Link></li>
-            </ul>
-          </div>
+
+          {footerSections.map(({ title, links }) => (
+            <div key={title}>
+              <h6 className="font-medium">{title}</h6>
+              <ul className="mt-6 space-y-4">
+                {links.map(({ title, href }) => (
+                  <li key={title}>
+                    <Link
+                      href={href}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-        <div className="border-t mt-8 pt-8 text-center text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} GoParo. Tous droits réservés.</p>
+        <Separator />
+        <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
+          {/* Copyright */}
+          <span className="text-muted-foreground">
+            &copy; {new Date().getFullYear()}{" "}
+            <Link href="/" target="_blank">
+              Goparo
+            </Link>
+            . Tous droits réservés.
+          </span>
+
+          <div className="font-[Inter] text-sm flex flex-col sm:flex-row items-center sm:gap-3 text-muted-foreground">
+              <Link href="#" target="_blank">CGU</Link>
+              <Link href="#" target="_blank">Politique de confidentialité</Link>
+              <Link href="#" target="_blank">Mentions légales</Link>
+            </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

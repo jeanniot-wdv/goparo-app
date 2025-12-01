@@ -13,7 +13,7 @@ export default function Header() {
       <div className="flex items-center justify-between py-4 px-8">
         {/* Left side */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/">
             <img src="images/logo.svg" alt="Goparo Logo" />
           </Link>
 
@@ -41,13 +41,13 @@ export default function Header() {
           {!user ? (
             <>
               <Link href="/login">
-                <Button variant="outline" className=" font-medium">
+                <Button variant="outline" className="font-medium">
                   Se connecter
                 </Button>
               </Link>
 
               <Link href="/register">
-                <Button size="lg" className=" font-medium">
+                <Button className="font-medium">
                   Essayer gratuitement
                 </Button>
               </Link>
@@ -55,7 +55,7 @@ export default function Header() {
           ) : (
             <div className="flex items-center gap-3">
               <Link href="/admin/dashboard">
-                <Button>Dashboard</Button>
+                <Button className="font-medium">Dashboard</Button>
               </Link>
 
               <UserMenu user={user} />

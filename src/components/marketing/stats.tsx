@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 
 export default function Stats () {
   return (
-    <div className="bg-slate-100 flex flex-col items-center justify-center py-10 sm:py-20 px-6">
+    <section className="bg-slate-100 flex flex-col items-center justify-center py-10 sm:py-20 px-6">
       <div className="max-w-(--breakpoint-xl) mx-auto text-center">
         <div className="mx-auto md:w-2/3">
 
@@ -17,19 +17,19 @@ export default function Stats () {
 
         <div className="mt-5 lg:mt-10 grid md:grid-cols-3 gap-12 justify-center">
           <div className="max-w-3xs">
-            <span className="text-5xl text-emerald-500 font-bold">-40%</span>
+            <span className="text-5xl font-bold">-40%</span>
             <p className="mt-5 text-lg">
               Temps passé sur la facturation
             </p>
           </div>
           <div className="max-w-3xs">
-            <span className="text-5xl text-emerald-500 font-bold">100%</span>
+            <span className="text-5xl font-bold">100%</span>
             <p className="mt-5 text-lg">
               Conforme réglementation 2026
             </p>
           </div>
           <div className="max-w-3xs">
-            <span className="text-5xl text-emerald-500 font-bold">99,9%</span>
+            <span className="text-5xl font-bold">99,9%</span>
             <p className="mt-5 text-lg">
               Disponilité garantie pour votre garage
             </p>
@@ -47,6 +47,6 @@ export default function Stats () {
             </Button>
           </Link>
         </div>
-    </div>
+    </section>
   );
 };
