@@ -51,7 +51,7 @@ function AnimatedNumber({
   );
 }
 
-export default function Stats() {
+export default function StatsSection() {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
