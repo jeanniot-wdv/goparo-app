@@ -6,7 +6,7 @@ import Hero from "@/components/marketing/Hero";
 import IntroSection from "@/components/marketing/IntroSection";
 import WhySection from "@/components/marketing/WhySection";
 import FeaturesSection from "@/components/marketing/FeaturesSection";
-import Stats from "@/components/marketing/Stats";
+import StatsSection from "@/components/marketing/StatsSection";
 import DetailsSection from "@/components/marketing/DetailsSection";
 import PrincingSection from "@/components/marketing/PricingSection";
 import FaqSection from "@/components/marketing/FaqSection";
@@ -24,7 +24,7 @@ export default function HomePage() {
       <IntroSection />
       <WhySection />
       <FeaturesSection />
-      <Stats />
+      <StatsSection />
       <DetailsSection />
       <PrincingSection />
       <FaqSection />

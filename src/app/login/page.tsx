@@ -117,12 +117,6 @@ export default function LoginPage() {
               {loading ? "Connexion..." : "Se connecter"}
             </Button>
 
-            <div className="text-sm text-center text-gray-600">
-              <p>Compte de démo :</p>
-              <p className="font-mono text-xs mt-1">
-                admin@garage-dupont.fr / admin123
-              </p>
-            </div>
           </form>
           <div className="mt-5 space-y-3">
             <Link
@@ -133,7 +127,7 @@ export default function LoginPage() {
             </Link>
             <p className="text-sm text-center">
               Pas encore de compte?
-              <Link href="#" className="ml-1 underline text-muted-foreground">
+              <Link href="/register" className="ml-1 underline text-muted-foreground">
                 Créer un compte
               </Link>
             </p>

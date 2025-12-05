@@ -102,7 +102,7 @@ export default function IntroSection() {
         </motion.div>
 
         {/* Liste des fonctionnalités avec cartes */}
-        <div className="flex flex-col gap-6 pb-10">
+        <div className="flex flex-col gap-5 mb-10 md:mb-20">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (

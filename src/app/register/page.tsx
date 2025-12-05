@@ -54,7 +54,7 @@ export default function LoginPage() {
             width={120}
             height={50}
           />
-          <p className="mt-2 text-xl tracking-tight">Votre espace de gestion</p>
+          <p className="mt-2 text-xl tracking-tight">Créer un compte</p>
 
           <Button className="mt-8 w-full gap-3">
             <GoogleLogo />
@@ -108,26 +108,14 @@ export default function LoginPage() {
               {loading ? "Connexion..." : "Se connecter"}
             </Button>
 
-            <div className="text-sm text-center text-gray-600">
-              <p>Compte de démo :</p>
-              <p className="font-mono text-xs mt-1">
-                admin@garage-dupont.fr / admin123
-              </p>
-            </div>
           </form>
           <div className="mt-5 space-y-3">
             <Link
-              href="#"
+              href="/"
               className="text-sm block underline text-muted-foreground text-center"
             >
-              Mot de passe oublié
+              Retourner à l'accueil
             </Link>
-            <p className="text-sm text-center">
-              Pas encore de compte?
-              <Link href="#" className="ml-1 underline text-muted-foreground">
-                Créer un compte
-              </Link>
-            </p>
           </div>
         </div>
       </div>

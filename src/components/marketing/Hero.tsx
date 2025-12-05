@@ -18,7 +18,7 @@ export default function Hero() {
       <div className="sm:flex gap-10 items-start mb-10 lg:mb-15">
         {/* Left side */}
         <div className="md:w-3/4 lg:w-1/2 flex flex-col justify-center text-slate-900 mt-5">
-          <div className="flex flex-wrap sm:gap-4 mb-4">
+          <div className="flex flex-wrap gap-x-4 gap-y-0 mb-4">
             <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-2 border-emerald-600 rounded-full font-semibold">
               Site web inclus
             </Badge>
@@ -33,7 +33,7 @@ export default function Hero() {
             Le logiciel de gestion garage <br />
             <span className="text-violet-600">qui simplifie tout</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl mx-auto">
+          <p className="mt-6 mb-10 md:mb-15 text-lg md:text-xl mx-auto">
             Avec Goparo, vous centralisez tout : devis, factures conformes 2026,
             planning des interventions, vente de véhicules, site vitrine
             dynamique et export comptable. Simple, rapide et 100 % cloud —
@@ -41,7 +41,7 @@ export default function Hero() {
           </p>
 
           {/* CTA */}
-          <div className="text-center mt-15">
+          <div className="text-center">
             <Link href="/register" className="inline-block">
               <Button
                 size="lg"
@@ -69,7 +69,7 @@ export default function Hero() {
         </div>
 
         {/* Right side */}
-        <div className=" bg-linear-to-b from-violet-600 to-white aspect-square hidde rounded-4xl lg:w-1/2 hidden lg:flex items-center justify-center">
+        <div className=" bg-linear-to-b from-violet-600 to-white aspect-square hidde rounded-xl lg:w-1/2 hidden lg:flex items-center justify-center">
           <Image
             src="images/full-desktop.svg"
             alt="Goparo App Screenshot"
