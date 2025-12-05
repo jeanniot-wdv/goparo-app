@@ -74,11 +74,18 @@ export default function NouvelleFacturePage() {
   }, [clientId, clients])
 
   // Charger le tarif horaire du garage
+  // useEffect(() => {
+  //   if (user?.garage.tarifHoraire) {
+  //     setTarifHoraire(parseFloat(user.garage.tarifHoraire.toString()))
+  //   }
+  // }, [user])
+
   useEffect(() => {
-    if (user?.garage.tarifHoraire) {
-      setTarifHoraire(parseFloat(user.garage.tarifHoraire.toString()))
-    }
-  }, [user])
+  // Vérifier si garage existe et a un tarifHoraire
+  if (user?.garage && 'tarifHoraire' in user.garage && user.garage.tarifHoraire) {
+    setTarifHoraire(parseFloat(user.garage.tarifHoraire.toString()))
+  }
+}, [user])
 
   // Ajouter une ligne
   const ajouterLigne = () => {

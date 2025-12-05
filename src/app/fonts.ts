@@ -1,8 +1,8 @@
 // frontend/src/app/fonts.ts
 
-import { Poppins, Inter } from 'next/font/google';
+import { Raleway, Inter } from 'next/font/google';
 
-export const poppins = Poppins({
+export const raleway = Raleway({
   subsets: ['latin'],
   weight: ['300','400','500','600','700','800','900'],
   variable: '--font-poppins',

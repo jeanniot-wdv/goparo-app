@@ -57,7 +57,7 @@ const faq = [
 
 export default function FaqSection() {
   return (
-    <section  id="faq" className="flex max-w-7xl mx-auto justify-center py-10 lg:py-20 px-6">
+    <section  id="faq" className="flex max-w-7xl mx-auto justify-center pb-10 lg:pb-25 px-6">
       <div className="container flex flex-col lg:flex-row items-start gap-4 sm:gap-8">
         <div className="xl:w-2/5 lg:pb-10">
           <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-4 rounded-full font-semibold">
@@ -72,7 +72,7 @@ export default function FaqSection() {
         <Accordion type="single" className="w-full xl:w-3/5">
           {faq.map(({ question, answer }, index) => (
             <AccordionItem key={question} value={`question-${index}`}>
-              <AccordionTrigger className="text-left">
+              <AccordionTrigger className="text-left text-lg">
                 {question}
               </AccordionTrigger>
               <AccordionContent className="font-[Inter] text-sm text-muted-foreground">

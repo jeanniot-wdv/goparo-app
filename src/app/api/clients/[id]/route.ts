@@ -8,7 +8,7 @@ import { clientSchema } from '@/lib/validations/client'
 // GET - Récupérer un client
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies()
@@ -29,9 +29,10 @@ export async function GET(
       )
     }
 
+    const { id } = await params
     const client = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id,
         garageId: payload.garageId, // Sécurité : isolation des données
       },
       include: {
@@ -76,7 +77,7 @@ export async function GET(
 // PUT - Modifier un client
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies()
@@ -98,9 +99,10 @@ export async function PUT(
     }
 
     // Vérifier que le client appartient au garage
+    const { id } = await params
     const existingClient = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id,
         garageId: payload.garageId,
       },
     })
@@ -129,7 +131,7 @@ export async function PUT(
 
     // Mettre à jour
     const client = await prisma.client.update({
-      where: { id: params.id },
+      where: { id },
       data: validation.data,
       include: {
         vehicules: true,
@@ -153,7 +155,7 @@ export async function PUT(
 // DELETE - Supprimer un client
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const cookieStore = await cookies()
@@ -175,9 +177,10 @@ export async function DELETE(
     }
 
     // Vérifier que le client appartient au garage
+    const { id } = await params
     const client = await prisma.client.findFirst({
       where: {
-        id: params.id,
+        id,
         garageId: payload.garageId,
       },
       include: {
@@ -207,13 +210,13 @@ export async function DELETE(
     // Supprimer les véhicules associés d'abord (si pas de factures)
     if (client.vehicules.length > 0) {
       await prisma.vehicule.deleteMany({
-        where: { clientId: params.id },
+        where: { clientId: id },
       })
     }
 
     // Supprimer le client
     await prisma.client.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({

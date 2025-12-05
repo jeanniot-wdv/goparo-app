@@ -48,7 +48,7 @@ export default function DashboardPage() {
       {/* En-tête */}
       <div>
         <h1 className="text-3xl font-bold">
-          Bonjour, {user?.prenom} 👋
+          Bonjour, {user?.prenom}
         </h1>
         <p className="text-gray-600 mt-1">
           Voici un aperçu de votre activité aujourd'hui

@@ -59,7 +59,7 @@
   --color-black: #000000;
 
   /* TYPO - Poppins par défaut */
-  --font-sans: var(--font-poppins);
+  --font-sans: var(--font-raleway);
   
   /* RADIUS PERSONNALISÉS */
   --radius-sm: 8px;
@@ -137,7 +137,7 @@
 
 :root {
   --radius: 0.625rem;
-  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-poppins: 'Raleway', system-ui, sans-serif;
   --font-inter: 'Inter', system-ui, sans-serif;
   --font-geist-sans: system-ui, -apple-system, sans-serif;
   --font-geist-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -213,7 +213,7 @@
 
 @layer base {
   :root {
-    font-family: var(--font-poppins), system-ui, sans-serif;
+    font-family: var(--font-raleway), system-ui, sans-serif;
   }
   * {
     @apply border-border outline-ring/50;

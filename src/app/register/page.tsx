@@ -7,13 +7,6 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -61,9 +54,7 @@ export default function LoginPage() {
             width={120}
             height={50}
           />
-          <p className="mt-2 text-xl tracking-tight">
-            Votre espace de gestion
-          </p>
+          <p className="mt-2 text-xl tracking-tight">Votre espace de gestion</p>
 
           <Button className="mt-8 w-full gap-3">
             <GoogleLogo />
@@ -139,7 +130,6 @@ export default function LoginPage() {
             </p>
           </div>
         </div>
-        
       </div>
     </div>
   );

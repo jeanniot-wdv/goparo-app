@@ -1,5 +1,4 @@
 // frontend/src/components/marketing/FeatureCard.tsx
-"use client";
 
 import { LucideIcon, CircleCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +35,7 @@ export default function FeatureDetailsCard({
       </CardHeader>
       <CardContent className="">
         <div className="hidden sm:block">{content}</div>
-        <ul className="text-sm font-medium mt-4 space-y-3 leading-snug">
+        <ul className="text-sm font-medium mt-4 space-y-2 leading-snug">
           {features.map((feature) => (
             <li key={feature} className="flex gap-2">
               <CircleCheck className="h-5 w-5 shrink-0 mt-px" />

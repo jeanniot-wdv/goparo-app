@@ -1,28 +1,27 @@
-// frontend/src/components/marketing/FeaturesDetailsSection.tsx
-
 "use client";
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import FeatureDetailsCard from "@/components/marketing/FeatureDetailsCard";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import TitleItem from "./TitleItem";
 import {
   FileText,
   UserRoundCog,
   Wrench,
   Globe,
   CalendarCheck,
-  Unplug
+  Unplug,
+  LucideIcon
 } from "lucide-react";
 
-export default function FeaturesDetailsSection() {
+export default function CardRollup() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
   const features = [
     {
-      bgColor: "emerald",
+      bgColor: "bg-emerald-500",
       title: "Facturation conforme 2026, sans effort",
       icon: FileText,
       content:
@@ -39,7 +38,7 @@ export default function FeaturesDetailsSection() {
       ],
     },
     {
-      bgColor: "orange",
+      bgColor: "bg-orange-500",
       title: "Toutes les infos clients et véhicules, centralisées",
       icon: UserRoundCog,
       content:
@@ -54,7 +53,7 @@ export default function FeaturesDetailsSection() {
       ],
     },
     {
-      bgColor: "violet",
+      bgColor: "bg-violet-500",
       title: "Organisez votre atelier comme jamais",
       icon: CalendarCheck,
       content:
@@ -70,7 +69,7 @@ export default function FeaturesDetailsSection() {
       ],
     },
     {
-      bgColor: "emerald",
+      bgColor: "bg-emerald-500",
       title: "Maîtrisez vos stocks et vos fournisseurs",
       icon: Wrench,
       content:
@@ -85,7 +84,7 @@ export default function FeaturesDetailsSection() {
       ],
     },
     {
-      bgColor: "orange",
+      bgColor: "bg-orange-500",
       title: "Votre site web professionnel, généré automatiquement",
       icon: Globe,
       content:
@@ -100,7 +99,7 @@ export default function FeaturesDetailsSection() {
       ],
     },
     {
-      bgColor: "violet",
+      bgColor: "bg-violet-500",
       title: "Connectez votre comptable en un clic",
       icon: Unplug,
       content:
@@ -116,37 +115,125 @@ export default function FeaturesDetailsSection() {
     },
   ];
 
-  return (
-    <div className="max-w-6xl mx-auto xl:max-w-full px-6 mb-10">
-      {/* Carousel pour mobile (jusqu'à lg) */}
-      <div className="">
-        <Carousel
-          opts={{
-            align: "start", // Alignement des slides
-            loop: true, // Boucle infinie
-            slidesToScroll: 1, // Avance d'1 carte à la fois
-          }}
-        >
-          <CarouselContent className="-ml-2 sm:-ml-4 py-4 sm:py-6">
-            {features.map((feature, index) => (
-              <CarouselItem key={index} className="pl-2 sm:pl-4 sm:basis-1/2 xl:basis-1/3">
-                <FeatureDetailsCard {...feature} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center gap-8 mt-6">
-            <CarouselPrevious className="static transform-none" />
-            <CarouselNext className="static transform-none" />
+  const FeatureCard = ({ 
+    feature, 
+    index 
+  }: { 
+    feature: typeof features[0]; 
+    index: number;
+  }) => {
+    const totalCards = features.length;
+    const startProgress = index / totalCards;
+    const endProgress = (index + 1) / totalCards;
+    
+    // Opacité : apparaît progressivement puis disparaît
+    const opacity = useTransform(
+      scrollYProgress,
+      [
+        startProgress - 0.05,
+        startProgress,
+        endProgress - 0.05,
+        endProgress
+      ],
+      [0, 1, 1, 0]
+    );
+    
+    // Scale : légèrement plus petit au début et à la fin
+    const scale = useTransform(
+      scrollYProgress,
+      [
+        startProgress - 0.05,
+        startProgress,
+        endProgress - 0.05,
+        endProgress
+      ],
+      [0.9, 1, 1, 0.9]
+    );
+    
+    const Icon = feature.icon;
+    
+    return (
+      <motion.div
+        style={{ opacity, scale }}
+        className="absolute  inset-0 flex items-center justify-center px-6"
+      >
+        <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            {/* Partie gauche - Titre et description */}
+            <div className={`${feature.bgColor} p-8 lg:p-12 text-white flex flex-col justify-center`}>
+              <div className="mb-6">
+                <Icon className="w-16 h-16 mb-4" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-3xl lg:text-4xl font-bold mb-6">
+                {feature.title}
+              </h3>
+              <p className="hidden sm:block text-lg lg:text-xl leading-relaxed opacity-95">
+                {feature.content}
+              </p>
+            </div>
+            
+            {/* Partie droite - Liste des features */}
+            <div className="bg-gray-50 p-8 lg:p-12 flex flex-col justify-center">
+              <h4 className="hidden sm:block text-xl font-semibold mb-6 text-gray-800">
+                Fonctionnalités clés :
+              </h4>
+              <ul className="space-y-4">
+                {feature.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <svg
+                      className="w-6 h-6 text-green-500 shrink-0 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    <span className="text-gray-700 leading-relaxed">{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </Carousel>
+        </div>
+      </motion.div>
+    );
+  };
+
+  return (
+    <section
+      id="features"
+      className="items-center justify-center my-10 lg:my-25"
+    >
+      <div className="text-center mx-auto pb-5 px-6">
+        <TitleItem
+          className="sm:w-4/5 lg:w-2/3 mx-auto"
+          text="De la facturation électronique à la gestion des stocks, découvrez comment chaque outil peut transformer votre activité."
+        >
+          Découvrez Goparo <span className="text-violet-500">en détail</span>
+        </TitleItem>
       </div>
 
-      {/* Grille pour desktop (à partir de lg) */}
-      {/* <div className="hidden lg:grid lg:grid-cols-3 lg:gap-5">
-        {features.map((feature, index) => (
-          <FeatureDetailsCard key={index} {...feature} />
-        ))}
-      </div> */}
-    </div>
+      {/* Section avec scroll bloqué */}
+      <div 
+        ref={containerRef}
+        className="relative"
+        style={{ height: `${features.length * 60}vh` }}
+      >
+        <div className="sticky top-0 h-screen flex items-center justify-center">
+          {features.map((feature, index) => (
+            <FeatureCard 
+              key={index} 
+              feature={feature} 
+              index={index}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
