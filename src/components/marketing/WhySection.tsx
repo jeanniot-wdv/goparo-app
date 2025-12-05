@@ -14,19 +14,19 @@ export default function WhySection() {
 
   const features = [
     {
-      bgColor: "violet",
+      bgColor: "from-emerald-500 to-emerald-400",
       title: "Conformité légale garantie",
       content:
         "Goparo respecte toutes les exigences de la facturation électronique obligatoire (DGFiP 2026). Formats structurés, archivage légal, QR-codes règlementaires, suivi TVA automatique. Aucune mise à jour technique à prévoir : vous êtes protégé.",
     },
     {
-      bgColor: "sky",
+      bgColor: "from-sky-500 to-sky-400",
       title: "Publication automatique des véhicules",
       content:
         "Ajoutez un véhicule VO/VN dans Goparo, et il apparaît instantanément sur votre site vitrine avec photos, détails techniques, prix et formulaire de contact. Zéro double saisie, gain de temps maximal.",
     },
     {
-      bgColor: "violet",
+      bgColor: "from-orange-500 to-orange-400",
       title: "Accès comptable dédié",
       content:
         "Votre expert-comptable accède directement à vos factures. Exports automatiques vers Sage, EBP, ACD. Formats FEC, CSV, PDF. Vos données comptables sont prêtes en un clic chaque mois.",
