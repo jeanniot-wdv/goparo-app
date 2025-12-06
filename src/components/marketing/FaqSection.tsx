@@ -57,7 +57,7 @@ const faq = [
 
 export default function FaqSection() {
   return (
-    <section  id="faq" className="flex max-w-7xl mx-auto justify-center pb-10 lg:pb-25 px-6">
+    <section  id="faq" className="flex max-w-7xl mx-auto justify-center py-15 lg:py-35 px-6">
       <div className="container flex flex-col lg:flex-row items-start gap-4 sm:gap-8">
         <div className="xl:w-2/5 lg:pb-10">
           <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-4 rounded-full font-semibold">

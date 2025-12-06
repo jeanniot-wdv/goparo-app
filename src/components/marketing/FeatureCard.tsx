@@ -17,14 +17,14 @@ export default function FeatureCard({
   title,
   content,
   iconColor,
-  iconSize = 40,
+  iconSize = 60,
 }: FeatureCardProps) {
   return (
-    <motion.div whileHover={{scale: 1.05}}>
-      <Card className="h-full shadow-lg hover:shadow-2xl transition-shadow duration-300">
+    <motion.div whileHover={{scale: 1.05}} className="h-full">
+      <Card className="h-full shadow-lg hover:shadow-2xl transition-shadow px-5 py-10 duration-300">
         <CardHeader className="flex flex-col gap-2 items-center sm:items-start text-center sm:text-start">
-          <Icon size={iconSize} className={`text-${iconColor}`} />
-          <CardTitle className="text-2xl font-medium">
+          <Icon size={iconSize} className={iconColor} />
+          <CardTitle className="text-2xl font-bold">
             <h3>{title}</h3>
           </CardTitle>
         </CardHeader>

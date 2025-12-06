@@ -39,7 +39,7 @@ export default function WhySection() {
     const start = index / totalCards;
     const end = (index + 1) / totalCards;
 
-    return useTransform(scrollYProgress, [start, end], [1200, 0]);
+    return useTransform(scrollYProgress, [start, end], [800, 0]);
   };
 
   const getCardOpacity = (index: number) => {
@@ -51,19 +51,16 @@ export default function WhySection() {
   };
 
   return (
-    <section
-      id="features"
-      className="items-center justify-center my-10 lg:my-25"
-    >
+    <section className="bg-linear-to-tl from-violet-950 to-violet-800 items-center justify-center py-10 lg:py-25">
       <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
-        <Badge className="bg-emerald-100 text-emerald-600 px-4 py-2 mb-4 rounded-full font-semibold">
+        <Badge className="bg-white text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
           Conçu pour les garages
         </Badge>
         <TitleItem
-          className="sm:w-4/5 lg:w-2/3 mx-auto"
+          className="sm:w-4/5 lg:w-2/3 text-white mx-auto"
           text="Conçu spécifiquement pour les garages — simple à prendre en main, complet dans les fonctions, et conforme aux normes les plus strictes."
         >
-          <span className="text-violet-500">Pourquoi</span> choisir Goparo ?
+          <span className="text-white">Pourquoi choisir Goparo ?</span>
         </TitleItem>
       </div>
 
@@ -73,7 +70,7 @@ export default function WhySection() {
         className="relative"
         style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        <div className="sticky top-0 h-[80vh] sm:top-[5vh] sm:h-screen flex items-center justify-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 xl:px-0 w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8">
               {features.map((feature, index) => {

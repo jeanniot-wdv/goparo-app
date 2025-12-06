@@ -1,17 +1,12 @@
-
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Cloud, Shield, Globe, CheckCircle2, Sparkles } from "lucide-react";
-import TitleItem from './TitleItem';
+import TitleItem from "./TitleItem";
 
 export default function IntroSection() {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-
   const features = [
     {
       icon: Cloud,
@@ -40,28 +35,15 @@ export default function IntroSection() {
       iconColor: "text-emerald-500",
       bgColor: "bg-emerald-50",
     },
-    {
-      icon: Globe,
-      title: "Votre",
-      highlight: "site web inclus",
-      highlightColor: "text-orange-500",
-      text: "Présentez vos services, promotions et véhicules en quelques clics. Gagnez en visibilité, attirez plus de clients et gérez facilement votre image en ligne depuis Goparo.",
-      iconColor: "text-orange-500",
-      bgColor: "bg-orange-50",
-      suffix: "et 100% administrable",
-    },
   ];
 
   return (
-    <section
-      ref={containerRef}
-      className="relative bg-linear-to-tl from-sky-400 via-white to-sky-200 px-6 py-15 sm:py-25 overflow-hidden"
-    >
+    <section className="relative bg-linear-to-tl from-sky-400 via-white to-sky-200 px-6 py-15 sm:py-25 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Badge et introduction */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
@@ -69,36 +51,31 @@ export default function IntroSection() {
             <Sparkles className="w-4 h-4" />
             Goparo c'est quoi ?
           </Badge>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl leading-relaxed space-y-4 text-gray-700"
-          >
-            <TitleItem text="Fini les allers-retours entre plusieurs outils : planning, devis,
+          <TitleItem
+            text="Fini les allers-retours entre plusieurs outils : planning, devis,
               factures, stocks, WordPress… tout est centralisé dans une
-              interface rapide, fluide et 100% modulable. Moins de tâches manuelles, plus de performance. Que demander de plus ?">
-              Bien plus qu'un logiciel de facturation : la solution tout-en-un pour piloter votre garage
-            </TitleItem>
-          </motion.div>
+              interface rapide, fluide et 100% modulable. Moins de tâches manuelles, plus de performance. Que demander de plus ?"
+          >
+            Bien plus qu'un logiciel de facturation : la solution tout-en-un
+            pour piloter votre garage
+          </TitleItem>
         </motion.div>
 
         {/* Image avec animation */}
         <motion.div
           initial={{ opacity: 0, scale: 0.4 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.2, delay: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.6 }}
           className="overflow-hidden"
         >
-            <Image
-              src="/images/img-feature-1.svg"
-              alt="Features"
-              width={1280}
-              height={800}
-              className="w-full h-full -mb-25 md:-mb-40 overflow-hidden"
-              priority
-            />
+          <Image
+            src="/images/img-feature-1.svg"
+            alt="Features"
+            width={1280}
+            height={800}
+            className="w-[80vw] h-full -mb-5 md:-mb-40 mx-auto overflow-hidden"
+            priority
+          />
         </motion.div>
 
         {/* Liste des fonctionnalités avec cartes */}
@@ -112,7 +89,6 @@ export default function IntroSection() {
                   x: 10,
                   transition: { duration: 0.3 },
                 }}
-                className="group"
               >
                 <div className="bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
                   <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-center">
@@ -131,7 +107,6 @@ export default function IntroSection() {
                         <span className={feature.highlightColor}>
                           {feature.highlight}
                         </span>
-                        {feature.suffix && <> {feature.suffix}</>}
                       </h2>
                     </div>
 
@@ -144,8 +119,7 @@ export default function IntroSection() {
                   </div>
 
                   {/* Barre de progression décorative */}
-                  <div className={`h-1 ${feature.bgColor} rounded-full mt-6`}
-                  />
+                  <div className={`h-1 ${feature.bgColor} rounded-full mt-6`} />
                 </div>
               </motion.div>
             );
@@ -155,8 +129,8 @@ export default function IntroSection() {
         {/* CTA final */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 1 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center"
         >
           <Link href="/register" className="inline-block">
@@ -180,7 +154,7 @@ export default function IntroSection() {
             </Button>
           </Link>
           <p className="text-gray-600 text-sm mt-4">
-            Sans engagement • Essai gratuit de 30 jours
+            Sans engagement • Essai gratuit sans CB
           </p>
         </motion.div>
       </div>
