@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center my-10 lg:my-25 px-6"
+      className="flex flex-col items-center justify-center my-15 lg:my-35 px-6"
     >
       <div className="max-w-6xl text-center mx-auto mb-6">
         <TitleItem

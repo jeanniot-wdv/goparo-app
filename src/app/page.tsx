@@ -3,7 +3,9 @@
 
 import Header from "@/components/marketing/Header";
 import Hero from "@/components/marketing/Hero";
+import LogoCloud from "@/components/marketing/LogoCloud";
 import IntroSection from "@/components/marketing/IntroSection";
+import WebSection from "@/components/marketing/WebSection";
 import WhySection from "@/components/marketing/WhySection";
 import FeaturesSection from "@/components/marketing/FeaturesSection";
 import StatsSection from "@/components/marketing/StatsSection";
@@ -21,7 +23,9 @@ export default function HomePage() {
     <>
       <Header />
       <Hero />
+      <LogoCloud />
       <IntroSection />
+      <WebSection />
       <WhySection />
       <FeaturesSection />
       <StatsSection />

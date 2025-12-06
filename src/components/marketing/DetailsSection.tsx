@@ -154,16 +154,16 @@ export default function DetailsSection() {
     return (
       <motion.div
         style={{ opacity, scale }}
-        className="absolute  inset-0 flex items-center justify-center px-6"
+        className="absolute inset-0 flex items-center justify-center mt-5 px-6"
       >
         <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Partie gauche - Titre et description */}
-            <div className={`${feature.bgColor} p-8 lg:p-12 text-white flex flex-col justify-center`}>
-              <div className="mb-6">
-                <Icon className="w-16 h-16 sm:mb-4" strokeWidth={1.5} />
+            <div className={`${feature.bgColor} p-6 sm:p-8 lg:p-12 text-white flex flex-col justify-center`}>
+              <div className="sm:mb-6 mx-auto">
+                <Icon className="w-16 h-16 mb-4" strokeWidth={1.5} />
               </div>
-              <h3 className="text-3xl lg:text-4xl font-bold mb-6">
+              <h3 className="text-3xl lg:text-4xl font-bold text-center sm:text-left sm:mb-6">
                 {feature.title}
               </h3>
               <p className="hidden sm:block text-lg lg:text-xl leading-relaxed opacity-95">
@@ -172,7 +172,7 @@ export default function DetailsSection() {
             </div>
             
             {/* Partie droite - Liste des features */}
-            <div className="bg-gray-50 p-8 lg:p-12 flex flex-col justify-center">
+            <div className="bg-gray-50 p-6 sm:sp-8 lg:p-12 flex flex-col justify-center">
               <h4 className="hidden sm:block text-xl font-semibold mb-6 text-gray-800">
                 Fonctionnalités clés :
               </h4>
@@ -204,11 +204,8 @@ export default function DetailsSection() {
   };
 
   return (
-    <section
-      id="features"
-      className="items-center justify-center my-10 lg:my-25"
-    >
-      <div className="text-center mx-auto pb-5 px-6">
+    <section className="items-center justify-center my-10 lg:my-25">
+      <div className="text-center mx-auto px-6">
         <TitleItem
           className="sm:w-4/5 lg:w-2/3 mx-auto"
           text="De la facturation électronique à la gestion des stocks, découvrez comment chaque outil peut transformer votre activité."
@@ -221,9 +218,9 @@ export default function DetailsSection() {
       <div 
         ref={containerRef}
         className="relative"
-        style={{ height: `${features.length * 60}vh` }}
+        style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-screen flex items-center justify-center">
+        <div className="sticky top-0 sm:top-[14vh] h-[80vh] flex items-center justify-center">
           {features.map((feature, index) => (
             <FeatureCard 
               key={index} 

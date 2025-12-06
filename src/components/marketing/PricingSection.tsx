@@ -1,4 +1,3 @@
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -73,32 +72,34 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="flex justify-center pb-10 lg:pb-25"
+      className="bg-violet-100 flex justify-center py-15 lg:py-35"
     >
-      <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
-        <Badge className="bg-violet-100 text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
+      <div className="text-center mx-auto px-6">
+        <Badge className="bg-sky-100 text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
           Tarification simple et sans surprise
         </Badge>
         <TitleItem
-          className="md:w-2/3 mx-auto"
+          className="md:w-2/3 pb-4 lg:pb-8 mx-auto"
           text="Sans engagement. Passez à l'offre supérieure à tout moment. Annulation en un clic."
         >
-          Des tarifs clairs, <span className="text-emerald-500">adaptés</span> à
+          Des tarifs clairs, <span className="text-orange-500">adaptés</span> à
           votre garage
         </TitleItem>
 
-        <motion.div className="flex flex-col items-center justify-center mt-10 lg:mt-15"
-          initial={{opacity: 0, scale: 0.5}}
-          whileInView={{opacity: 1, scale: 1}}
-          transition={{duration: 1}}>
+        <motion.div
+          className="flex flex-col items-center justify-center mt-10 lg:mt-15"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+        >
           <div className="mx-auto grid grid-cols-1 lg:w-3/4 xl:w-full sm:grid-cols-2 xl:grid-cols-4 items-center gap-6 sm:gap-0">
             {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={cn(
-                  "bg-white relative flex flex-col h-full border p-6",
+                  "bg-white hover:scale-102 hover:z-50 hover:shadow-2xl relative flex flex-col h-full border p-6",
                   {
-                    "border-2 border-primary bg-linear-to-br from-violet-200 to-white shadow-xl shadow-violet-200":
+                    "border-2 border-primary bg-linear-to-bl from-sky-200 to-white hover:shadow-2xl":
                       plan.isPopular,
                   }
                 )}
@@ -115,9 +116,14 @@ export default function PricingSection() {
                   <p className="mt-4 grow text-lg text-muted-foreground">
                     {plan.description}
                   </p>
-                  <p className="font-['Inter'] mt-auto text-5xl text-violet-600 font-extrabold">
-                    {plan.price}€
-                  </p>
+                  <div className="flex text-violet-600 items-center justify-center gap-2">
+                    <p className="font-['Inter'] mt-auto text-5xl font-extrabold">
+                      {plan.price}€
+                    </p>
+                    <p className="text-sm font-medium text-left">
+                      HT<br />/mois
+                    </p>
+                  </div>
                 </div>
                 <Separator className="my-5" />
 

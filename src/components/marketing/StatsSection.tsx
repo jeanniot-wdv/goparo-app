@@ -129,7 +129,7 @@ export default function StatsSection() {
   return (
     <section 
       ref={containerRef}
-      className="relative bg-linear-to-br from-violet-500 via-violet-400 to-violet-500 py-10 lg:py-25 px-6 overflow-hidden"
+      className="relative bg-linear-to-br from-violet-500 via-violet-400 to-violet-500 py-15 lg:py-35 px-6 overflow-hidden"
     >
       {/* Éléments décoratifs en arrière-plan */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -262,7 +262,7 @@ export default function StatsSection() {
               </motion.span>
             </Button>
           </Link>
-          <p className="text-gray-600 text-sm mt-4">
+          <p className="text-white text-sm mt-4">
             Sans engagement • Configuration en 5 minutes
           </p>
         </motion.div>

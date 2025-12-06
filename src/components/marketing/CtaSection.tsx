@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function CtaSection() {
   return (
     <motion.section
-        className="flex flex-col items-center justify-center bg-linear-to-r from-violet-500 to-violet-600 text-white rounded-r-full py-10 sm:py-25 px-6"
+        className="flex flex-col items-center justify-center bg-linear-to-r from-violet-500 to-violet-600 text-white rounded-r-4xl md:rounded-r-full py-10 sm:py-25 px-6"
         initial={{ opacity: 0, translateX: "-100%" }}
         whileInView={{ opacity: 1, translateX: 0 }}
         transition={{ duration: 1 }}
