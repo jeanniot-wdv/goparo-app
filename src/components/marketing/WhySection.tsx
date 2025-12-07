@@ -70,7 +70,7 @@ export default function WhySection() {
         className="relative"
         style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-[90vh] sm:top-[5vh] flex items-center justify-center overflow-hidden">
+        <div className="sticky top-0 h-[100vh] flex items-center justify-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 xl:px-0 w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8">
               {features.map((feature, index) => {
