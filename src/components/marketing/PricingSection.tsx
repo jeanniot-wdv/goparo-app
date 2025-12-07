@@ -5,8 +5,6 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import TitleItem from "./TitleItem";
 
-import { motion } from "framer-motion";
-
 const plans = [
   {
     name: "Découverte",
@@ -86,20 +84,15 @@ export default function PricingSection() {
           votre garage
         </TitleItem>
 
-        <motion.div
-          className="flex flex-col items-center justify-center mt-10 lg:mt-15"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-        >
+        <div className="flex flex-col items-center justify-center mt-10 lg:mt-15">
           <div className="mx-auto grid grid-cols-1 lg:w-3/4 xl:w-full sm:grid-cols-2 xl:grid-cols-4 items-center gap-6 sm:gap-0">
             {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={cn(
-                  "bg-white hover:scale-102 hover:z-50 hover:shadow-2xl relative flex flex-col h-full border p-6",
+                  "bg-white hover:scale-102 hover:z-50 hover:shadow-2xl duration-300 hover:scale-105 relative flex flex-col h-full border p-6",
                   {
-                    "border-2 border-primary bg-gradient-to-bl from-sky-200 to-white hover:shadow-2xl":
+                    "border-2 border-primary bg-gradient-to-bl from-sky-200 to-white":
                       plan.isPopular,
                   }
                 )}
@@ -145,7 +138,7 @@ export default function PricingSection() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
