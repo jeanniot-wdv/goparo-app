@@ -12,7 +12,7 @@ import { Marquee } from "@/components/ui/marquee";
 
 const LogoCloud = () => {
   return (
-    <div className="flex items-center justify-center py-20 lg:py-35">
+    <div className="flex items-center justify-center py-20 lg:py-32">
       <div className="overflow-hidden">
         <p className="text-center text-4xl font-bold text-slate-700">
           Déjà utilisé par +500 garages en France

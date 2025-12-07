@@ -129,7 +129,7 @@ export default function StatsSection() {
   return (
     <section 
       ref={containerRef}
-      className="relative bg-linear-to-br from-violet-500 via-violet-400 to-violet-500 py-15 lg:py-35 px-6 overflow-hidden"
+      className="relative bg-gradient-to-br from-violet-500 via-violet-400 to-violet-500 py-16 lg:py-32 px-6 overflow-hidden"
     >
       {/* Éléments décoratifs en arrière-plan */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">

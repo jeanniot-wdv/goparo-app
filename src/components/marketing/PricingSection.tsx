@@ -72,7 +72,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="bg-violet-100 flex justify-center py-15 lg:py-35"
+      className="bg-violet-100 flex justify-center py-16 lg:py-32"
     >
       <div className="text-center mx-auto px-6">
         <Badge className="bg-sky-100 text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
@@ -99,7 +99,7 @@ export default function PricingSection() {
                 className={cn(
                   "bg-white hover:scale-102 hover:z-50 hover:shadow-2xl relative flex flex-col h-full border p-6",
                   {
-                    "border-2 border-primary bg-linear-to-bl from-sky-200 to-white hover:shadow-2xl":
+                    "border-2 border-primary bg-gradient-to-bl from-sky-200 to-white hover:shadow-2xl":
                       plan.isPopular,
                   }
                 )}
