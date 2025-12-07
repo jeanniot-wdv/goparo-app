@@ -17,7 +17,7 @@ export default function WhySection() {
       bgColor: "from-emerald-500 to-emerald-400",
       title: "Conformité légale garantie",
       content:
-        "Goparo respecte toutes les exigences de la facturation électronique obligatoire (DGFiP 2026). Formats structurés, archivage légal, QR-codes règlementaires, suivi TVA automatique. Aucune mise à jour technique à prévoir : vous êtes protégé.",
+        "Goparo respecte toutes les exigences de la facturation électronique obligatoire (DGFiP 2026). Formats structurés, archivage légal, QR-codes règlementaires, suivi TVA automatique.",
     },
     {
       bgColor: "from-sky-500 to-sky-400",
