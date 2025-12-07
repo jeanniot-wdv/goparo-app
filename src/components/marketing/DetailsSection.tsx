@@ -220,7 +220,7 @@ export default function DetailsSection() {
         className="relative"
         style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-[100vh] sm:h-[75vh] flex items-center justify-center">
+        <div className="sticky top-0 h-[100vh] flex items-center justify-center">
           {features.map((feature, index) => (
             <FeatureCard 
               key={index} 

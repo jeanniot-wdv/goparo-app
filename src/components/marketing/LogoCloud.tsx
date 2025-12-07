@@ -21,7 +21,7 @@ const LogoCloud = () => {
         <div className="mt-6 flex items-center justify-center gap-x-14 gap-y-10 max-w-(--breakpoint-xl)">
           <Marquee
             pauseOnHover
-            className="[--duration:20s] [&_svg]:mr-10 mask-x-from-70% mask-x-to-90%"
+            className="[--duration:20s] [&_svg]:mr-10 mask-x-from-70"
           >
             <Logo01 />
             <Logo02 />

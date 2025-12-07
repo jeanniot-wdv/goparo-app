@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .mask-x-fade {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+  
+  .mask-x-from-70 {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 70%,
+      black 90%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 70%,
+      black 90%,
+      transparent 100%
+    );
+  }
+}
+
 @layer base {
   :root {
     /* Light mode - Valeurs en HSL (sans hsl()) */
@@ -79,28 +115,10 @@ body {
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
 }
 
-@keyframes marquee-vertical {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-/* Classes utilitaires Tailwind */
 .animate-marquee {
-  animation: marquee var(--duration, 40s) gradient infinite;
-}
-
-.animate-marquee-vertical {
-  animation: marquee-vertical var(--duration, 40s) gradient infinite;
+  animation: marquee var(--duration, 40s) linear infinite;
 }
