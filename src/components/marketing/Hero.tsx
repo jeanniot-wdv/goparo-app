@@ -36,7 +36,7 @@ export default function Hero() {
             Le logiciel de gestion garage <br />
             <span className="text-violet-600">qui simplifie tout</span>
           </h1>
-          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto leading-loose">
+          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto leading-relaxed">
             Avec Goparo, vous centralisez tout : devis, factures conformes 2026,
             planning des interventions, vente de véhicules, site vitrine
             dynamique et export comptable. Simple, rapide et 100 % cloud —
