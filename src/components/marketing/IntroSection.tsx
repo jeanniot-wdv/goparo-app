@@ -38,7 +38,7 @@ export default function IntroSection() {
   ];
 
   return (
-    <section className="relative bg-linear-to-tl from-sky-400 via-white to-sky-200 px-6 py-15 sm:py-25 overflow-hidden">
+    <section className="relative bg-gradient-to-tl from-sky-400 via-white to-sky-200 px-6 py-16 sm:py-32 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Badge et introduction */}
         <motion.div
@@ -136,7 +136,7 @@ export default function IntroSection() {
           <Link href="/register" className="inline-block">
             <Button
               size="lg"
-              className="bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
+              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
             >
               <span className="flex items-center gap-2">
                 Commencer gratuitement

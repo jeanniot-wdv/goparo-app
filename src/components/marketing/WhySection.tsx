@@ -51,7 +51,7 @@ export default function WhySection() {
   };
 
   return (
-    <section className="bg-linear-to-tl from-violet-950 to-violet-800 items-center justify-center py-10 lg:py-25">
+    <section className="bg-gradient-to-tl from-violet-950 to-violet-800 items-center justify-center py-10 lg:py-32">
       <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
         <Badge className="bg-white text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
           Conçu pour les garages
@@ -70,7 +70,7 @@ export default function WhySection() {
         className="relative"
         style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 h-[80vh] sm:top-[5vh] sm:h-screen flex items-center justify-center overflow-hidden">
+        <div className="sticky top-0 h-[90vh] sm:top-[5vh] flex items-center justify-center overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 xl:px-0 w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8">
               {features.map((feature, index) => {

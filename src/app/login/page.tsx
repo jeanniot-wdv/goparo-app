@@ -52,7 +52,7 @@ export default function LoginPage() {
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="w-full h-full grid lg:grid-cols-2 p-4">
-        <div className="bg-linear-to-r from-violet-500 to-violet-600 hidden lg:block rounded-lg border" />
+        <div className="bg-gradient-to-r from-violet-500 to-violet-600 hidden lg:block rounded-lg border" />
 
         <div className="m-auto flex flex-col items-center">
           <Image

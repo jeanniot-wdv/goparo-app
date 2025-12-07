@@ -9,7 +9,7 @@ export default function WebSection() {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="items-center justify-center my-20 lg:my-35"
+      className="items-center justify-center my-20 lg:my-32"
     >
       <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
         <Badge className="bg-orange-100 text-orange-600 border-orange-500 px-4 py-2 mb-4 rounded-full font-semibold">

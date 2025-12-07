@@ -17,7 +17,7 @@ export default function FeatureCard({
   title,
   content,
   iconColor,
-  iconSize = 60,
+  iconSize = 50,
 }: FeatureCardProps) {
   return (
     <motion.div whileHover={{scale: 1.05}} className="h-full">

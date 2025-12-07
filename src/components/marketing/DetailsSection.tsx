@@ -204,7 +204,7 @@ export default function DetailsSection() {
   };
 
   return (
-    <section className="items-center justify-center my-10 lg:my-25">
+    <section className="items-center justify-center my-10 lg:my-24">
       <div className="text-center mx-auto px-6">
         <TitleItem
           className="sm:w-4/5 lg:w-2/3 mx-auto"
@@ -220,7 +220,7 @@ export default function DetailsSection() {
         className="relative"
         style={{ height: `${features.length * 100}vh` }}
       >
-        <div className="sticky top-0 sm:top-[14vh] h-[80vh] flex items-center justify-center">
+        <div className="sticky top-0 sm:top-[14vh] h-[95vh] sm:h-[75vh] flex items-center justify-center">
           {features.map((feature, index) => (
             <FeatureCard 
               key={index} 

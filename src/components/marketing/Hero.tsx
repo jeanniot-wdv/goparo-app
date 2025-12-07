@@ -15,7 +15,7 @@ export default function Hero() {
 
   return (
     <section
-      className="bg-linear-to-tr from-white via-violet-100 to-sky-300 -mt-5 py-10 md:py-20 xl:py-30 px-5 sm:px-8 lg:px-10"
+      className="bg-gradient-to-tr from-white via-violet-100 to-sky-300 -mt-5 py-10 md:py-20 xl:py-32 px-5 sm:px-8 lg:px-10"
       id="hero"
     >
       <div className="flex flex-wrap gap-x-4 gap-y-1">
@@ -36,7 +36,7 @@ export default function Hero() {
             Le logiciel de gestion garage <br />
             <span className="text-violet-600">qui simplifie tout</span>
           </h1>
-          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto leading-relaxed">
+          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto leading-loose">
             Avec Goparo, vous centralisez tout : devis, factures conformes 2026,
             planning des interventions, vente de véhicules, site vitrine
             dynamique et export comptable. Simple, rapide et 100 % cloud —
@@ -60,7 +60,7 @@ export default function Hero() {
         <Link href="/register" className="inline-block">
           <Button
             size="lg"
-            className="bg-linear-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
+            className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
           >
             <span className="flex items-center gap-2">
               Commencer gratuitement

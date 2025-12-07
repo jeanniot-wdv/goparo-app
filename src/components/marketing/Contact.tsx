@@ -11,7 +11,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center my-15 lg:my-35 px-6"
+      className="flex flex-col items-center justify-center my-16 lg:my-32 px-6"
     >
       <div className="max-w-6xl text-center mx-auto mb-6">
         <TitleItem
@@ -67,7 +67,7 @@ export default function Contact() {
               </div>
               <div className="flex gap-3">
                 <Checkbox id="acceptTerms" className="mt-1 bg-background" />
-                <div className="font-[Inter] text-sm text-start text-muted-foreground">
+                <div className="font-[Inter] text-sm text-start text-muted">
                   <Label htmlFor="acceptTerms" className="block leading-snug">
                     J’accepte que mes données personnelles soient utilisées pour
                     me recontacter dans le cadre de ma demande.
