@@ -70,7 +70,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl flex justify-center py-16 lg:py-32"
+      className="bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl flex justify-center mx-6 py-16 lg:py-32"
     >
       <div className="text-center mx-auto px-6">
         <Badge className="bg-white text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
@@ -83,7 +83,7 @@ export default function PricingSection() {
           <span className="text-white">Des tarifs clairs, adaptés à votre garage</span>
         </TitleItem>
 
-        <div className="flex flex-col items-center justify-center mt-10 lg:mt-15">
+        <div className="max-w-6xl flex flex-col items-center justify-center mx-auto mt-10 lg:mt-15">
           <div className="mx-auto grid grid-cols-1 lg:w-3/4 xl:w-full sm:grid-cols-2 xl:grid-cols-4 items-center gap-6 sm:gap-0">
             {plans.map((plan) => (
               <div
@@ -101,7 +101,7 @@ export default function PricingSection() {
                     Le plus populaire
                   </Badge>
                 )}
-                <div className="h-42 flex flex-col">
+                <div className="h-40 flex flex-col">
                   <h3 className="text-3xl text-violet-600 font-bold">
                     {plan.name}
                   </h3>

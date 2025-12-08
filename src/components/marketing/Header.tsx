@@ -13,7 +13,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="shadow-md bg-white rounded-b-3xl sticky top-0 z-50">
+    <header className="shadow-md bg-white rounded-b-3xl sticky top-0 z-[9999]">
       <div className="flex items-center justify-between py-4 px-6 md:px-8">
 
         {/* LEFT — Logo + Desktop Nav */}
