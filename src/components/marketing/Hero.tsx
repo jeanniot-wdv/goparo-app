@@ -26,11 +26,11 @@ export default function Hero() {
       <div className="sm:flex flex-col lg:flex-row gap-5 items-center mb-20">
         {/* Left side */}
         <div className="lg:w-1/2 flex flex-col justify-center text-slate-900 mt-5">
-          <h1 className="text-5xl lg:text-6xl xl:text-6xl font-bold leading-12 lg:leading-16 xl:leading-16">
+          <h1 className="text-5xl lg:text-6xl xl:text-6xl font-bold">
             Le logiciel de gestion garage <br />
             <span className="text-violet-600">qui simplifie tout</span>
           </h1>
-          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto leading-relaxed">
+          <p className="mt-10 lg:mt-15 mb-10 lg:mb-0 text-xl md:text-2xl mx-auto">
             Avec Goparo, vous centralisez tout : devis, factures conformes 2026,
             planning des interventions, vente de véhicules, site vitrine
             dynamique et export comptable. Simple, rapide et 100 % cloud —
