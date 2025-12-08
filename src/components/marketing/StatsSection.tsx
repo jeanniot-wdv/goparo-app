@@ -236,35 +236,20 @@ export default function StatsSection() {
         </motion.div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center"
+        <div className="text-center"
         >
           <Link href="/register">
             <Button
               size="lg"
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="text-white bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105 px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
               Commencer gratuitement
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ 
-                  duration: 1.5, 
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="ml-2 inline-block"
-              >
-                →
-              </motion.span>
             </Button>
           </Link>
-          <p className="text-white text-sm mt-4">
+          <p className="text-sm mt-4">
             Sans engagement • Configuration en 5 minutes
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -17,11 +17,10 @@ export default function CtaSection() {
             Prêt à transformer la gestion de votre garage ?
           </TitleItem>
         </div>
-        <Link href="/register" className="w-full sm:w-min">
+        <Link href="/register" className="w-full sm:w-fit">
           <Button
-            variant="outline"
             size="lg"
-            className="w-full border-white text-white hover:bg-violet-500"
+            className="w-full bg-gradient-to-r from-white to-white text-sky-600 hover:from-violet-50 hover:to-violet-300 hover:shadow-xl transition-all hover:scale-105 "
           >
             Commencer gratuitement
           </Button>

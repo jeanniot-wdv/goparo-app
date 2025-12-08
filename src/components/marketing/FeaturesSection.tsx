@@ -111,7 +111,7 @@ export default function FeaturesSection() {
           <Button
             variant="success"
             size="lg"
-            className="w-full sm:w-auto mt-5 lg:mt-10"
+            className="w-full sm:w-fit bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 hover:shadow-xl transition-all hover:scale-105 mt-5 lg:mt-10"
           >
             Découvrir notre offre complète
           </Button>

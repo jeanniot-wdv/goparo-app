@@ -127,36 +127,18 @@ export default function IntroSection() {
         </div>
 
         {/* CTA final */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center"
-        >
+        <div className="text-center">
           <Link href="/register" className="inline-block">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
-            >
-              <span className="flex items-center gap-2">
-                Commencer gratuitement
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  →
-                </motion.span>
-              </span>
+              className="bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105 text-white px-10 py-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
+            >Commencer gratuitement
             </Button>
           </Link>
           <p className="text-gray-600 text-sm mt-4">
             Sans engagement • Essai gratuit sans CB
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
