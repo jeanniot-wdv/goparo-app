@@ -51,7 +51,7 @@ export default function WhySection() {
   };
 
   return (
-    <section className="bg-gradient-to-tl from-violet-950 to-violet-800 items-center justify-center py-10 lg:py-32">
+    <section className="bg-gradient-to-l from-sky-600 to-violet-600 rounded-3xl items-center justify-center py-10 lg:py-32">
       <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
         <Badge className="bg-white text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
           Conçu pour les garages

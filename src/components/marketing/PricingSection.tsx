@@ -56,7 +56,7 @@ const plans = [
     features: [
       "Tout Professionnel",
       "Utilisateurs illimités",
-      "Module PLanning Atelier",
+      "Module Planning Atelier",
       "Module Vente Véhicules (avec publication auto sur site)",
       "Multi-sites (jusqu'à 3 garages)",
       "Account manager dédié",
@@ -70,18 +70,17 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="bg-violet-100 flex justify-center py-16 lg:py-32"
+      className="bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl flex justify-center py-16 lg:py-32"
     >
       <div className="text-center mx-auto px-6">
-        <Badge className="bg-sky-100 text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
+        <Badge className="bg-white text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
           Tarification simple et sans surprise
         </Badge>
         <TitleItem
-          className="md:w-2/3 pb-4 lg:pb-8 mx-auto"
+          className="md:w-2/3 pb-4 lg:pb-8 mx-auto text-white"
           text="Sans engagement. Passez à l'offre supérieure à tout moment. Annulation en un clic."
         >
-          Des tarifs clairs, <span className="text-orange-500">adaptés</span> à
-          votre garage
+          <span className="text-white">Des tarifs clairs, adaptés à votre garage</span>
         </TitleItem>
 
         <div className="flex flex-col items-center justify-center mt-10 lg:mt-15">
@@ -98,7 +97,7 @@ export default function PricingSection() {
                 )}
               >
                 {plan.isPopular && (
-                  <Badge className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
+                  <Badge className="absolute bg-white text-violet-500 font-semibold top-0 right-1/2 translate-x-1/2 -translate-y-1/2">
                     Le plus populaire
                   </Badge>
                 )}

@@ -129,7 +129,7 @@ export default function StatsSection() {
   return (
     <section 
       ref={containerRef}
-      className="relative bg-gradient-to-br from-violet-500 via-violet-400 to-violet-500 py-16 lg:py-32 px-6 overflow-hidden"
+      className="relative bg-gradient-to-tr from-white via-violet-100 to-sky-300 rounded-3xl py-16 lg:py-32 px-6 overflow-hidden"
     >
       {/* Éléments décoratifs en arrière-plan */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -168,9 +168,8 @@ export default function StatsSection() {
           className="text-center mb-16 lg:mb-20"
         >
           <TitleItem 
-          className="text-white"
           text="Rejoignez des centaines de garages qui ont transformé leur gestion quotidienne">
-            Des résultats qui <span className="text-white">parlent d'eux-mêmes</span>
+            Des résultats qui parlent d'eux-mêmes
           </TitleItem>
         </motion.div>
 
