@@ -38,7 +38,7 @@ export default function IntroSection() {
   ];
 
   return (
-    <section className="relative bg-gradient-to-tl from-sky-400 via-white to-sky-200 px-6 py-16 sm:py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-tl from-sky-400 via-white to-sky-200 rounded-3xl px-6 py-16 sm:py-32 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Badge et introduction */}
         <motion.div

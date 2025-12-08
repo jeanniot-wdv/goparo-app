@@ -16,6 +16,7 @@ import CtaSection from "@/components/marketing/CtaSection";
 import Contact from "@/components/marketing/Contact";
 import Footer from "@/components/marketing/Footer";
 import { success } from "zod";
+import { WaitlistForm } from "@/components/marketing/WaitListForm";
 
 
 export default function HomePage() {
@@ -33,7 +34,8 @@ export default function HomePage() {
       <PrincingSection />
       <FaqSection />
       <CtaSection />
-      <Contact />
+      <WaitlistForm />
+      {/* <Contact /> */}
       <Footer />
     </>
   );

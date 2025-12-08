@@ -1,6 +1,8 @@
+
 import type { Metadata } from "next";
 import { raleway } from "./fonts";
 import "./globals.css";
+import { RecaptchaProvider } from "@/components/marketing/RecaptchaProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +50,9 @@ export default function RootLayout({
       <body
         className={`${raleway.className} antialiased`}
       >
-        {children}
+        <RecaptchaProvider>
+          {children}
+        </RecaptchaProvider>
       </body>
     </html>
   );

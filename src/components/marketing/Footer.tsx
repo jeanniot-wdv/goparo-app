@@ -79,7 +79,7 @@ const footerSections = [
 
 const Footer = () => {
   return (
-    <footer className="border-t">
+    <footer className="bg-gradient-to-l from-white via-violet-100 to-sky-300 border-t">
       <div className="max-w-(--breakpoint-xl) mx-auto">
         <div className="py-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10 px-6">
           <div className="col-span-full lg:col-span-2 flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-10 lg:gap-4">
@@ -128,7 +128,7 @@ const Footer = () => {
           ))}
         </div>
         <Separator />
-        <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
+        <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6">
           {/* Copyright */}
           <span className="text-muted-foreground">
             &copy; {new Date().getFullYear()}{" "}
