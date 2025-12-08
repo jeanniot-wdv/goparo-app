@@ -17,11 +17,13 @@ import Contact from "@/components/marketing/Contact";
 import Footer from "@/components/marketing/Footer";
 import { success } from "zod";
 import { WaitlistForm } from "@/components/marketing/WaitListForm";
+import BetaBanner from "@/components/marketing/BetaBanner";
 
 
 export default function HomePage() {
   return (
     <>
+      <BetaBanner />
       <Header />
       <Hero />
       <LogoCloud />
