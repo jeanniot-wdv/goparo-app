@@ -104,7 +104,7 @@ const Footer = () => {
             </div>
             </div>
 
-            <p className="text-muted-foreground">
+            <p>
               Goparo est la solution SaaS tout-en-un pour les garages automobiles. Facturation conforme 2026, site vitrine automatique, gestion complète de l'atelier.
             </p>
           </div>

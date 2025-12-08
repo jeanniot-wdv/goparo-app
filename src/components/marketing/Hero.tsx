@@ -4,14 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import LogoCloud from "./LogoCloud";
-
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 
 export default function Hero() {
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
     <section
@@ -60,21 +54,8 @@ export default function Hero() {
         <Link href="/register" className="inline-block">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700 text-white px-10 py-6 text-lg rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
-          >
-            <span className="flex items-center gap-2">
-              Commencer gratuitement
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                →
-              </motion.span>
-            </span>
+            className="bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105  text-white px-10 py-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
+          >Commencer gratuitement
           </Button>
         </Link>
         <p className="text-gray-600 text-sm mt-4">
