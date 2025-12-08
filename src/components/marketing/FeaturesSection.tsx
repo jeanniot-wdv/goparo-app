@@ -67,7 +67,7 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="max-w-7xl mx-auto py-16 md:py-20 lg:py-32">
+    <section id="features" className="max-w-6xl mx-auto py-16 md:py-20 lg:py-32">
       <div className="max-w-6xl text-center mx-auto pb-5 lg:pb-10 px-6">
         <TitleItem text="Un ensemble d'outils pensés pour la gestion complète d'un garage, accessible partout.">
           Tout ce dont un{" "}

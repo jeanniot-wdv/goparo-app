@@ -129,7 +129,7 @@ export default function StatsSection() {
   return (
     <section 
       ref={containerRef}
-      className="relative bg-gradient-to-tr from-white via-violet-100 to-sky-300 rounded-3xl py-16 lg:py-32 px-6 overflow-hidden"
+      className="relative bg-gradient-to-tr from-white via-violet-100 to-sky-300 rounded-3xl py-16 lg:py-32 mx-6 px-6 overflow-hidden"
     >
       {/* Éléments décoratifs en arrière-plan */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -159,7 +159,7 @@ export default function StatsSection() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* En-tête */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
