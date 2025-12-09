@@ -70,7 +70,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="bg-gradient-to-r from-sky-600 to-violet-600 rounded-3xl flex justify-center mx-6 py-16 lg:py-32"
+      className="bg-gradient-to-tl from-sky-600 to-violet-600 rounded-3xl flex justify-center sm:mx-6 py-16 lg:py-32"
     >
       <div className="text-center mx-auto px-6">
         <Badge className="bg-white text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
