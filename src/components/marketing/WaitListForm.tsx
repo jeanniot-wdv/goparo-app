@@ -40,7 +40,6 @@ export function WaitlistForm() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-
   const form = useForm<Omit<WaitlistFormData, "recaptchaToken">>({
     resolver: zodResolver(waitlistSchema.omit({ recaptchaToken: true })),
   });
@@ -61,14 +60,17 @@ export function WaitlistForm() {
       });
       const result = await res.json();
       if (result.success) {
-        setSuccess(true);
-        form.reset();
-        if (typeof window !== "undefined" && (window as any).gtag) {
-          (window as any).gtag("event", "waitlist_submit", {
-            event_category: "engagement",
-            event_label: data.forfaitInteresse,
+        // Envoie les données à GTM AVANT de mettre success à true
+        if (typeof window !== "undefined" && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            event: "waitlist_submit",
+            garage_name: data.nomGarage,
+            garage_size: data.tailleGarage,
+            plan: data.forfaitInteresse,
           });
         }
+        setSuccess(true);
+        form.reset();
       } else {
         setError(result.message || "Une erreur est survenue");
       }
@@ -107,7 +109,7 @@ export function WaitlistForm() {
             Rejoignez la liste d'attente
           </CardTitle>
           <CardDescription className="pb-10">
-            Soyez parmi les premiers à découvrir Gorapro et profitez de{" "}
+            Soyez parmi les premiers à découvrir Goparo et profitez de{" "}
             <span className="font-semibold text-blue-600">3 mois gratuits</span>{" "}
             !
           </CardDescription>
@@ -121,7 +123,6 @@ export function WaitlistForm() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-
               {/* Nom */}
               <FormField
                 control={form.control}
@@ -136,7 +137,6 @@ export function WaitlistForm() {
                   </FormItem>
                 )}
               />
-
               {/* Email */}
               <FormField
                 control={form.control}
@@ -155,7 +155,6 @@ export function WaitlistForm() {
                   </FormItem>
                 )}
               />
-
               {/* Nom du garage */}
               <FormField
                 control={form.control}
@@ -170,7 +169,6 @@ export function WaitlistForm() {
                   </FormItem>
                 )}
               />
-
               <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-4">
                 {/* Taille garage */}
                 <FormField
@@ -203,7 +201,6 @@ export function WaitlistForm() {
                     </FormItem>
                   )}
                 />
-
                 {/* Forfait intéressé */}
                 <FormField
                   control={form.control}
@@ -238,19 +235,28 @@ export function WaitlistForm() {
                   )}
                 />
               </div>
-
               {/* Badge reCAPTCHA */}
               <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
                 <Shield className="h-4 w-4" />
                 <span>Protégé par reCAPTCHA</span>
               </div>
-
               {/* Submit */}
               <Button
                 size={"lg"}
                 type="submit"
                 disabled={submitting}
                 className="flex w-full sm:w-fit mx-auto bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 transition-all hover:scale-105 active:scale-95 shadow-lg"
+                onClick={() => {
+                  if (
+                    typeof window !== "undefined" &&
+                    (window as any).dataLayer
+                  ) {
+                    (window as any).dataLayer.push({
+                      event: "waitlist_cta_click",
+                      button_text: "Rejoindre la liste d'attente",
+                    });
+                  }
+                }}
               >
                 {submitting ? (
                   <>

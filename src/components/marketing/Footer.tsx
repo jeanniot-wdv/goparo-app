@@ -79,7 +79,7 @@ const footerSections = [
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-l from-white via-violet-100 to-sky-300 border-t">
+    <footer className="bg-gradient-to-br from-white via-violet-100 to-sky-300 border-t">
       <div className="max-w-(--breakpoint-xl) mx-auto">
         <div className="max-w-6xl mx-auto py-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10 px-6">
           <div className="col-span-full lg:col-span-2 flex flex-col sm:flex-row lg:flex-col gap-4 sm:gap-10 lg:gap-4">
