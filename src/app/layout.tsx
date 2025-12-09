@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { raleway } from "./fonts";
+import { Raleway } from 'next/font/google';
 import "./globals.css";
 import { RecaptchaProvider } from "@/components/marketing/RecaptchaProvider";
 import { CookiebotScript } from "@/components/analytics/CookiebotScript";
 import { GoogleConsentMode } from "@/components/analytics/GoogleConsentMode";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: {

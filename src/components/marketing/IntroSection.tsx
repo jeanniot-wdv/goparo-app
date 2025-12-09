@@ -69,7 +69,7 @@ export default function IntroSection() {
           className="overflow-hidden"
         >
           <Image
-            src="/images/img-feature-1.svg"
+            src="/images/img-feature.png"
             alt="Features"
             width={1280}
             height={800}

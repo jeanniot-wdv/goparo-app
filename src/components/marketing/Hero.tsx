@@ -41,7 +41,7 @@ export default function Hero() {
         {/* Right side */}
         <div className="lg:w-1/2 items-center">
           <Image
-            src="images/full-desktop.svg"
+            src="/images/hero.png"
             alt="Goparo App Screenshot"
             width={600}
             height={400}
