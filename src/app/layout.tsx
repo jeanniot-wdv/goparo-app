@@ -1,23 +1,30 @@
+import Script from "next/script";
 import type { Metadata } from "next";
-import { Raleway } from 'next/font/google';
+import { Raleway } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { RecaptchaProvider } from "@/components/marketing/RecaptchaProvider";
-import { CookiebotScript } from "@/components/analytics/CookiebotScript";
-import { GoogleConsentMode } from "@/components/analytics/GoogleConsentMode";
-import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
+import TarteaucitronConfig from "./tarteaucitron-config";
 
 const raleway = Raleway({
-  subsets: ['latin'],
-  display: 'swap',
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
   preload: true,
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Logiciel de Gestion et Facturation pour Garages – Goparo | Simplifiez votre quotidien",
-    template: "%s | GoParo"
+    default:
+      "Logiciel de Gestion et Facturation pour Garages – Goparo | Simplifiez votre quotidien",
+    template: "%s | GoParo",
   },
-  description: "Goparo automatise la gestion et la facturation de votre garage. Créez des devis en 1 clic, suivez vos clients et boostez votre productivité. Essayez gratuitement dès aujourd'hui !",
+  description:
+    "Goparo automatise la gestion et la facturation de votre garage. Créez des devis en 1 clic, suivez vos clients et boostez votre productivité. Essayez gratuitement dès aujourd'hui !",
   icons: {
     icon: "/favicon.ico",
   },
@@ -54,19 +61,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <head>
-        <CookiebotScript />
-        <GoogleConsentMode />
-        <GoogleTagManager />
-      </head>
-
+    <html lang="fr" suppressHydrationWarning>
       <body className={`${raleway.className} antialiased`}>
-        <GoogleTagManager.NoScript />
-        
-        <RecaptchaProvider>
-          {children}
-        </RecaptchaProvider>
+        <TarteaucitronConfig />
+        {children}
+
       </body>
     </html>
   );

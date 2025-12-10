@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   waitlistSchema,
   type WaitlistFormData,
@@ -36,7 +35,6 @@ import {
 } from "@/components/ui/form";
 
 export function WaitlistForm() {
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -45,14 +43,17 @@ export function WaitlistForm() {
   });
 
   const onSubmit = async (data: Omit<WaitlistFormData, "recaptchaToken">) => {
-    if (!executeRecaptcha) {
-      setError("reCAPTCHA non chargé. Veuillez rafraîchir la page.");
-      return;
-    }
     setSubmitting(true);
     setError("");
     try {
-      const recaptchaToken = await executeRecaptcha("waitlist_submit");
+      if (typeof window === "undefined" || !window.grecaptcha) {
+        setError("reCAPTCHA non chargé. Veuillez accepter les cookies.");
+        return;
+      }
+      const recaptchaToken = await window.grecaptcha.execute(
+        `${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`,
+        { action: "waitlist_submit" }
+      );
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
