@@ -1,4 +1,3 @@
-import Script from "next/script";
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { Inter } from "next/font/google";
@@ -62,6 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      
       <body className={`${raleway.className} antialiased`}>
         <TarteaucitronConfig />
         {children}

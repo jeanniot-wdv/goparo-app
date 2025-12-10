@@ -40,6 +40,13 @@ export function WaitlistForm() {
   const [error, setError] = useState("");
   const form = useForm<Omit<WaitlistFormData, "recaptchaToken">>({
     resolver: zodResolver(waitlistSchema.omit({ recaptchaToken: true })),
+    defaultValues: {
+      nom: "",
+      email: "",
+      nomGarage: "",
+      tailleGarage: "",
+      forfaitInteresse: "",
+    },
   });
 
   const onSubmit = async (data: Omit<WaitlistFormData, "recaptchaToken">) => {
