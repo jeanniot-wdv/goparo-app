@@ -45,6 +45,7 @@ export default function Hero() {
             alt="Goparo App Screenshot"
             width={600}
             height={400}
+            priority
             className="w-full"
           />
         </div>

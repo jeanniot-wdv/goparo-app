@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/useUser";
 import { UserMenu } from "@/components/admin/UserMenu";
@@ -15,11 +16,16 @@ export default function Header() {
   return (
     <header className="shadow-md bg-white rounded-b-3xl sticky top-0 z-[9999]">
       <div className="flex items-center justify-between py-4 px-6 md:px-8">
-
         {/* LEFT — Logo + Desktop Nav */}
         <div className="flex items-center gap-8">
           <Link href="/">
-            <img src="images/logo.svg" alt="Goparo Logo" className="h-8" />
+            <Image
+              src="/images/logo.svg"
+              alt="Goparo Logo"
+              width={110}
+              height={35}
+              className="h-8"
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -127,17 +133,13 @@ export default function Header() {
                     </Button>
                   </Link>
                   <Link href="/register" onClick={() => setOpen(false)}>
-                    <Button className="w-full">
-                      Essayer gratuitement
-                    </Button>
+                    <Button className="w-full">Essayer gratuitement</Button>
                   </Link>
                 </div>
-              ) :  (
+              ) : (
                 <div className="mt-auto">
                   <Link href="/admin/dashboard" onClick={() => setOpen(false)}>
-                    <Button className="w-full">
-                      Dashboard
-                    </Button>
+                    <Button className="w-full">Dashboard</Button>
                   </Link>
                 </div>
               )}
