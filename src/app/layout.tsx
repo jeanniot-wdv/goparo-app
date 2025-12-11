@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import TarteaucitronConfig from "./tarteaucitron-config";
+import Script from 'next/script';
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -56,16 +56,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      
+      <head>
+        <link 
+          rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/css/tarteaucitron.min.css" 
+        />
+        <Script 
+          src="/tarteaucitron-init.js" 
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={`${raleway.className} antialiased`}>
-        <TarteaucitronConfig />
         {children}
-
       </body>
     </html>
   );

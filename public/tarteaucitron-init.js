@@ -1,21 +1,11 @@
-"use client";
-
-import Script from "next/script";
-
-export default function TarteaucitronConfig() {
-  return (
-    <>
-      {/* Script core tarteaucitron */}
-      <Script
-        src="/tarteaucitron/tarteaucitron.min.js"
-        strategy="beforeInteractive"
-      />
-
-      {/* Configuration tarteaucitron */}
-      <Script id="tarteaucitron-init" strategy="beforeInteractive">
-        {`
-          tarteaucitron.init({
-          "privacyUrl": "", /* Url de la politique de confidentialité */
+// public/tarteaucitron-init.js
+(function() {
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/tarteaucitron.min.js';
+  script.onload = function() {
+    if (window.tarteaucitron) {
+      tarteaucitron.init({
+        "privacyUrl": "", /* Url de la politique de confidentialité */
           "bodyPosition": "top", /* top place le bandeau de consentement au début du code html, mieux pour l'accessibilité */
 
     	    "hashtag": "#tarteaucitron", /* Hashtag qui permet d'ouvrir le panneau de contrôle  */
@@ -23,7 +13,7 @@ export default function TarteaucitronConfig() {
     
     	    "orientation": "middle", /* Position de la bannière (top - bottom - middle - popup - banner) */
        
-          "groupServices": true, /* Grouper les services par catégorie */
+          "groupServices": false, /* Grouper les services par catégorie */
           "showDetailsOnClick": true, /* Cliquer pour ouvrir la description */
           "serviceDefaultState": "wait", /* Statut par défaut (true - wait - false) */
                            
@@ -31,9 +21,9 @@ export default function TarteaucitronConfig() {
     	    "cookieslist": false, /* Afficher la liste des cookies via une mini bannière */
           "cookieslistEmbed": false, /* Afficher la liste des cookies dans le panneau de contrôle */
                            
-          "closePopup": true, /* Afficher un X pour fermer la bannière */
+          "closePopup": false, /* Afficher un X pour fermer la bannière */
 
-          "showIcon": false, /* Afficher un cookie pour ouvrir le panneau */
+          "showIcon": true, /* Afficher un cookie pour ouvrir le panneau */
           //"iconSrc": "", /* Optionnel: URL ou image en base64 */
           "iconPosition": "BottomLeft", /* Position de l'icons: (BottomRight - BottomLeft - TopRight - TopLeft) */
 
@@ -70,28 +60,30 @@ export default function TarteaucitronConfig() {
           "dataLayer": false, /* Envoyer un événement dans dataLayer avec le statut des services */
           "serverSide": false, /* Server side seulement, les tags ne sont pas chargé côté client */
           
-          "partnersList": true /* Afficher le détail du nombre de partenaires sur la bandeau */
-          });
+          "partnersList": false /* Afficher le détail du nombre de partenaires sur la bandeau */
+      });
+      
+      // Initialiser dataLayer AVANT GTM
+      window.dataLayer = window.dataLayer || [];
+      
+      // GTM
+      tarteaucitron.user.googletagmanagerId = 'GTM-M3ZGV63G';
+      (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
 
-          // ----------------------
-          // GOOGLE TAG MANAGER
-          // ----------------------
-          tarteaucitron.user.gtmId = "${process.env.NEXT_PUBLIC_GTM_ID}";
-          (tarteaucitron.job = tarteaucitron.job || []).push("gtm");
-
-          // ----------------------
-          // GOOGLE ANALYTICS
-          // ----------------------
-          tarteaucitron.user.gtmId = "${process.env.NEXT_PUBLIC_GA_ID}";
-          (tarteaucitron.job = tarteaucitron.job || []).push('gcmanalyticsstorage');
-
-          // ----------------------
-          // reCAPTCHA v3
-          // ----------------------
-          tarteaucitron.user.recaptchaapi = "${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}"; 
-          (tarteaucitron.job = tarteaucitron.job || []).push("recaptcha");
-        `}
-      </Script>
-    </>
-  );
-}
+      // GA4
+      tarteaucitron.user.gtagUa = 'G-87TMPSBEKZ';
+      tarteaucitron.user.gtagMore = function () {
+        // Configuration supplémentaire si nécessaire
+      };
+      (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+      
+      // reCAPTCHA
+      tarteaucitron.user.recaptchaapi = '6Lc26CQsAAAAAM2lLN3fhV-EMpgHkXFkvhYY13hf';
+      (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
+      
+      console.log('✅ Tarteaucitron configuré');
+      console.log('✅ GTM ID:', tarteaucitron.user.googletagmanagerId);
+    }
+  };
+  document.head.appendChild(script);
+})();
