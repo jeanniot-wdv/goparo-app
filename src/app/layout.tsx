@@ -27,27 +27,37 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  keywords: ["logiciel", "application", "garage", "gestion", "facturation", "factures", "véhicules", "automobile"],
+  keywords: [
+    'logiciel garage automobile',
+    'gestion garage',
+    'facturation garage',
+    'SaaS garage',
+    'logiciel mécanique',
+    'gestion atelier',
+    'facturation DGFIP 2026',
+    'devis facture garage',
+    'gestion stock pièces',
+  ],
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Goparo",
-    description: "Application de facturation pour garage",
+    title: "Logiciel de Gestion et Facturation pour Garages – Goparo | Simplifiez votre quotidien",
+    description: "Goparo automatise la gestion et la facturation de votre garage. Créez des devis en 1 clic, suivez vos clients et boostez votre productivité. Essayez gratuitement dès aujourd'hui !",
     url: "https://goparo.fr",
     siteName: "Goparo",
     type: "website",
   },
   appleWebApp: {
-    title: "Goparo",
+    title: "Goparo - Logiciel de Gestion pour Garages Automobiles",
     capable: true,
     statusBarStyle: "default",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Goparo",
-    description: "Application de facturation pour garage",
+    title: "Goparo - Logiciel de Gestion pour Garages Automobiles",
+    description: "Solution complète pour gestion garages automobiles : facturation, gestion clients, véhicules.",
   },
   alternates: {
     canonical: "https://goparo.fr",
