@@ -6,27 +6,26 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default function Hero() {
-
   return (
     <section
       className="bg-gradient-to-tr from-white via-violet-100 to-sky-300 -mt-5 py-10 md:py-20 xl:py-32 px-5 sm:px-8 lg:px-10"
       id="hero"
     >
-      <div className="flex flex-wrap gap-x-4 gap-y-1">
-        <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
-          Site web inclus
-        </Badge>
-        <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
-          Conforme facturation 2026
-        </Badge>
-        <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
-          Export comptabilité
-        </Badge>
-      </div>
       <div className="sm:flex flex-col lg:flex-row gap-5 items-center mb-20">
         {/* Left side */}
         <div className="lg:w-1/2 flex flex-col justify-center text-slate-900 mt-5">
-          <h1 className="text-5xl lg:text-6xl xl:text-6xl font-bold">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
+              Site web inclus
+            </Badge>
+            <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
+              Conforme facturation 2026
+            </Badge>
+            <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
+              Export comptabilité
+            </Badge>
+          </div>
+          <h1 className="text-5xl lg:text-7xl font-black mt-5">
             Le logiciel de gestion garage <br />
             <span className="text-violet-600">qui simplifie tout</span>
           </h1>
@@ -39,14 +38,14 @@ export default function Hero() {
         </div>
 
         {/* Right side */}
-        <div className="lg:w-1/2 items-center">
+        <div className="lg:w-1/2 items-center rounded-3xl sm:rounded-full shadow-xl overflow-hidden">
           <Image
             src="/images/hero.png"
             alt="Goparo App Screenshot"
             width={600}
             height={400}
             priority
-            className="w-full"
+            className="h-auto w-full object-cover"
           />
         </div>
       </div>
@@ -56,7 +55,8 @@ export default function Hero() {
           <Button
             size="lg"
             className="bg-gradient-to-r from-sky-600 to-violet-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105  text-white px-10 py-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group"
-          >Commencer gratuitement
+          >
+            Commencer gratuitement
           </Button>
         </Link>
         <p className="text-gray-600 text-sm mt-4">

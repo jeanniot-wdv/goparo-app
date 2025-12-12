@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Raleway } from "next/font/google";
-import { Inter } from "next/font/google";
+import { Nunito } from 'next/font/google';
 import "./globals.css";
 import Script from 'next/script';
 
-const raleway = Raleway({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
-
-const inter = Inter({
+const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
   preload: true,
@@ -73,7 +66,7 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <link 
-          rel="stylesheet" 
+          rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/css/tarteaucitron.min.css" 
         />
         <Script 
@@ -81,7 +74,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body className={`${raleway.className} antialiased`}>
+      <body className={`${nunito.className} antialiased`}>
         {children}
       </body>
     </html>

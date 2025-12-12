@@ -518,7 +518,7 @@ export default function ConfigurationPage() {
                       URL de votre site
                     </p>
                     <p className="text-sm text-blue-700 mt-1">
-                      {user?.garage.slug}.mongarage-saas.com
+                      {user?.garage.slug}.goparo.fr
                     </p>
                   </div>
 

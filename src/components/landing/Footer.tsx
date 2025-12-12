@@ -145,7 +145,7 @@ const Footer = () => {
             . Tous droits réservés.
           </span>
 
-          <div className="font-[Inter] text-sm flex flex-col sm:flex-row items-center sm:gap-3 text-muted-foreground">
+          <div className="text-sm flex flex-col sm:flex-row items-center sm:gap-3 text-muted-foreground">
             <Link href="#" target="_blank">
               CGU
             </Link>

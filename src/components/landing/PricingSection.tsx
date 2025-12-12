@@ -109,7 +109,7 @@ export default function PricingSection() {
                     {plan.description}
                   </p>
                   <div className="flex text-violet-600 items-center justify-center gap-2">
-                    <p className="font-['Inter'] mt-auto text-5xl font-extrabold">
+                    <p className="mt-auto text-5xl font-extrabold">
                       {plan.price}€
                     </p>
                     <p className="text-sm font-medium text-left">
