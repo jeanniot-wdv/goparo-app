@@ -1,39 +1,102 @@
+// src/app/register/page.tsx
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  registerStep1Schema,
+  registerStep2Schema,
+  type RegisterStep1Data,
+  type RegisterStep2Data,
+} from "@/lib/validations/garage";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import {
+  Loader2,
+  Building2,
+  User,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle2,
+} from "lucide-react";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [step, setStep] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Données de l'étape 1 (conservées en mémoire)
+  const [step1Data, setStep1Data] = useState<RegisterStep1Data | null>(null);
+
+  // Formulaire étape 1
+  const formStep1 = useForm<RegisterStep1Data>({
+    resolver: zodResolver(registerStep1Schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      nom: "",
+      prenom: "",
+    },
+  });
+
+  // Formulaire étape 2
+  const formStep2 = useForm<RegisterStep2Data>({
+    resolver: zodResolver(registerStep2Schema),
+    defaultValues: {
+      nomGarage: "",
+      siret: "",
+      adresse: "",
+      codePostal: "",
+      ville: "",
+      telephone: "",
+      emailGarage: "",
+    },
+  });
+
+  // Soumettre étape 1
+  const onSubmitStep1 = async (data: RegisterStep1Data) => {
     setError("");
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
+      // Vérifier disponibilité email
+      const res = await fetch("/api/auth/check-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: data.email }),
       });
 
-      const data = await res.json();
+      const result = await res.json();
 
-      if (data.success) {
-        router.push("/admin/dashboard");
-        router.refresh();
+      if (result.available) {
+        // Email disponible, passer à l'étape 2
+        setStep1Data(data);
+        setStep(2);
       } else {
-        setError(data.message || "Erreur de connexion");
+        setError(result.message || "Cet email est déjà utilisé");
       }
     } catch (err) {
       setError("Erreur réseau");
@@ -42,118 +105,413 @@ export default function LoginPage() {
     }
   };
 
+  // Soumettre étape 2 (création finale)
+  const onSubmitStep2 = async (data: RegisterStep2Data) => {
+    if (!step1Data) {
+      setError("Données manquantes");
+      return;
+    }
+
+    setError("");
+    setLoading(true);
+
+    try {
+      // Combiner les données des 2 étapes
+      const completeData = {
+        ...step1Data,
+        ...data,
+      };
+
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(completeData),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        // Inscription réussie, rediriger vers le tableau de bord dans un nouvel onglet
+        router.push("/");
+        window.open("/admin/dashboard", "_blank");
+        
+        router.refresh();
+      } else {
+        setError(result.message || "Une erreur est survenue");
+      }
+    } catch (err) {
+      setError("Erreur réseau");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const progressValue = step === 1 ? 50 : 100;
+
   return (
-    <div className="h-screen flex items-center justify-center">
-      <div className="w-full h-full grid lg:grid-cols-2 p-4">
-        <div className="bg-gradient-to-r from-violet-500 to-violet-600 hidden lg:block rounded-lg border" />
-
-        <div className="m-auto flex flex-col items-center">
-          <Image
-            src="/images/logo.svg"
-            alt="logo goparo"
-            width={120}
-            height={50}
-          />
-          <p className="mt-2 text-xl tracking-tight">Créer un compte</p>
-
-          <Button className="mt-8 w-full gap-3">
-            <GoogleLogo />
-            Continuer avec Google
-          </Button>
-
-          <div className="my-7 w-full flex items-center justify-center overflow-hidden">
-            <Separator />
-            <span className="text-sm px-2">OU</span>
-            <Separator />
+    <div className="min-h-screen bg-gradient-to-r from-violet-500 to-violet-600 flex items-center justify-center p-4">
+      <Card className="w-full max-w-2xl">
+        <CardHeader className="text-center">
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/images/logo.svg"
+              alt="Goparo Logo"
+              width={130}
+              height={40}
+            />
           </div>
+          <CardTitle className="text-2xl font-bold">
+            {step === 1 ? "Créer votre compte" : "Informations de votre garage"}
+          </CardTitle>
+          <CardDescription>
+            {step === 1
+              ? "Commencez par vos informations personnelles"
+              : "Dernière étape avant de commencer !"}
+          </CardDescription>
 
-          <form onSubmit={handleSubmit} className="w-full space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium">
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="nom@votre-garage.fr"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-              />
+          {/* Progress bar */}
+          <div className="mt-6">
+            <div className="flex justify-between mb-2 text-sm">
+              <span
+                className={
+                  step === 1 ? "font-semibold text-blue-600" : "text-gray-500"
+                }
+              >
+                Étape 1/2
+              </span>
+              <span
+                className={
+                  step === 2 ? "font-semibold text-blue-600" : "text-gray-500"
+                }
+              >
+                Étape 2/2
+              </span>
             </div>
-
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium">
-                Mot de passe
-              </label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-
-            {error && (
-              <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
-                {error}
-              </div>
-            )}
-
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Connexion..." : "Se connecter"}
-            </Button>
-
-          </form>
-          <div className="mt-5 space-y-3">
-            <Link
-              href="/"
-              className="text-sm block underline text-muted-foreground text-center"
-            >
-              Retourner à l'accueil
-            </Link>
+            <Progress value={progressValue} className="h-2" />
           </div>
-        </div>
-      </div>
+        </CardHeader>
+
+        <CardContent>
+          {/* ÉTAPE 1 : Informations utilisateur */}
+          {step === 1 && (
+            <Form {...formStep1}>
+              <form
+                onSubmit={formStep1.handleSubmit(onSubmitStep1)}
+                className="space-y-4"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <User className="h-5 w-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold">Vos informations</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep1.control}
+                    name="prenom"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Prénom *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Jean"
+                            {...field}
+                            autoComplete="given-name"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formStep1.control}
+                    name="nom"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nom *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Dupont"
+                            {...field}
+                            autoComplete="family-name"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={formStep1.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="jean.dupont@email.com"
+                          {...field}
+                          autoComplete="email"
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Utilisé pour vous connecter à votre espace
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep1.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Mot de passe *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            {...field}
+                            autoComplete="new-password"
+                          />
+                        </FormControl>
+                        <FormDescription>Minimum 8 caractères</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formStep1.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirmer *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="••••••••"
+                            {...field}
+                            autoComplete="new-password"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {error && (
+                  <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
+                    {error}
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size="lg"
+                  disabled={loading}
+                >
+                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  Continuer
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+
+                <p className="text-center text-sm text-gray-600">
+                  Vous avez déjà un compte ?{" "}
+                  <Link href="/login" className="text-blue-600 hover:underline">
+                    Se connecter
+                  </Link>
+                </p>
+              </form>
+            </Form>
+          )}
+
+          {/* ÉTAPE 2 : Informations garage */}
+          {step === 2 && (
+            <Form {...formStep2}>
+              <form
+                onSubmit={formStep2.handleSubmit(onSubmitStep2)}
+                className="space-y-4"
+              >
+                {/* Récap étape 1 */}
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-green-900">
+                        Compte utilisateur créé
+                      </p>
+                      <p className="text-sm text-green-700 mt-1">
+                        {step1Data?.prenom} {step1Data?.nom} •{" "}
+                        {step1Data?.email}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 mb-4">
+                  <Building2 className="h-5 w-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold">Votre garage</h3>
+                </div>
+
+                <FormField
+                  control={formStep2.control}
+                  name="nomGarage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nom du garage *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Garage Dupont" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep2.control}
+                    name="siret"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>SIRET *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="12345678900012"
+                            maxLength={14}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>14 chiffres</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formStep2.control}
+                    name="telephone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Téléphone *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="0123456789" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={formStep2.control}
+                  name="emailGarage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email du garage *</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="contact@garage-dupont.fr"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Visible sur vos factures et devis
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={formStep2.control}
+                  name="adresse"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Adresse *</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="15 Rue de la République"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep2.control}
+                    name="codePostal"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Code postal *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="75001" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formStep2.control}
+                    name="ville"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Ville *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Paris" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {error && (
+                  <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
+                    {error}
+                  </div>
+                )}
+
+                <div className="flex gap-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(1)}
+                    disabled={loading}
+                    className="flex-1"
+                  >
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Retour
+                  </Button>
+
+                  <Button
+                    type="submit"
+                    className="flex-1"
+                    size="lg"
+                    disabled={loading}
+                  >
+                    {loading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
+                    Créer mon garage
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
-const GoogleLogo = () => (
-  <svg
-    width="1.2em"
-    height="1.2em"
-    id="icon-google"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="inline-block shrink-0 align-sub text-inherit size-lg"
-  >
-    <g clipPath="url(#clip0)">
-      <path
-        d="M15.6823 8.18368C15.6823 7.63986 15.6382 7.0931 15.5442 6.55811H7.99829V9.63876H12.3194C12.1401 10.6323 11.564 11.5113 10.7203 12.0698V14.0687H13.2983C14.8122 12.6753 15.6823 10.6176 15.6823 8.18368Z"
-        fill="#4285F4"
-      ></path>
-      <path
-        d="M7.99812 16C10.1558 16 11.9753 15.2915 13.3011 14.0687L10.7231 12.0698C10.0058 12.5578 9.07988 12.8341 8.00106 12.8341C5.91398 12.8341 4.14436 11.426 3.50942 9.53296H0.849121V11.5936C2.2072 14.295 4.97332 16 7.99812 16Z"
-        fill="#34A853"
-      ></path>
-      <path
-        d="M3.50665 9.53295C3.17154 8.53938 3.17154 7.4635 3.50665 6.46993V4.4093H0.849292C-0.285376 6.66982 -0.285376 9.33306 0.849292 11.5936L3.50665 9.53295Z"
-        fill="#FBBC04"
-      ></path>
-      <path
-        d="M7.99812 3.16589C9.13867 3.14825 10.241 3.57743 11.067 4.36523L13.3511 2.0812C11.9048 0.723121 9.98526 -0.0235266 7.99812 -1.02057e-05C4.97332 -1.02057e-05 2.2072 1.70493 0.849121 4.40932L3.50648 6.46995C4.13848 4.57394 5.91104 3.16589 7.99812 3.16589Z"
-        fill="#EA4335"
-      ></path>
-    </g>
-    <defs>
-      <clipPath id="clip0">
-        <rect width="15.6825" height="16" fill="white"></rect>
-      </clipPath>
-    </defs>
-  </svg>
-);

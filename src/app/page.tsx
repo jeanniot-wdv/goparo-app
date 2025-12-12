@@ -1,23 +1,23 @@
 // src/app/page.tsx
 "use client";
 
-import Header from "@/components/marketing/Header";
-import Hero from "@/components/marketing/Hero";
-import LogoCloud from "@/components/marketing/LogoCloud";
-import IntroSection from "@/components/marketing/IntroSection";
-import WebSection from "@/components/marketing/WebSection";
-import WhySection from "@/components/marketing/WhySection";
-import FeaturesSection from "@/components/marketing/FeaturesSection";
-import StatsSection from "@/components/marketing/StatsSection";
-import DetailsSection from "@/components/marketing/DetailsSection";
-import PrincingSection from "@/components/marketing/PricingSection";
-import FaqSection from "@/components/marketing/FaqSection";
-import CtaSection from "@/components/marketing/CtaSection";
-import Contact from "@/components/marketing/Contact";
-import Footer from "@/components/marketing/Footer";
+import Header from "@/components/landing/Header";
+import Hero from "@/components/landing/Hero";
+import LogoCloud from "@/components/landing/LogoCloud";
+import IntroSection from "@/components/landing/IntroSection";
+import WebSection from "@/components/landing/WebSection";
+import WhySection from "@/components/landing/WhySection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
+import StatsSection from "@/components/landing/StatsSection";
+import DetailsSection from "@/components/landing/DetailsSection";
+import PrincingSection from "@/components/landing/PricingSection";
+import FaqSection from "@/components/landing/FaqSection";
+import CtaSection from "@/components/landing/CtaSection";
+import Contact from "@/components/landing/Contact";
+import Footer from "@/components/landing/Footer";
 import { success } from "zod";
-import { WaitlistForm } from "@/components/marketing/WaitListForm";
-import BetaBanner from "@/components/marketing/BetaBanner";
+import { WaitlistForm } from "@/components/landing/WaitListForm";
+import BetaBanner from "@/components/landing/BetaBanner";
 
 
 export default function HomePage() {

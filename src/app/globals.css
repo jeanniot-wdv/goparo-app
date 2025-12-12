@@ -130,3 +130,19 @@ body {
 .animate-marquee {
   animation: marquee var(--duration, 40s) linear infinite;
 }
+
+
+#tarteaucitronIcon #tarteaucitronManager img {
+  width: 40px !important;
+  height: 40px !important;
+}
+#tarteaucitronAlertBig button.tarteaucitronAllow,
+#tarteaucitronAlertBig button.tarteaucitronDeny, 
+#tarteaucitron button.tarteaucitronAllow,
+#tarteaucitron button.tarteaucitronDeny {
+  background-color: #D8B4FE !important;
+}
+
+.grecaptcha-badge {
+  display: none !important;
+}

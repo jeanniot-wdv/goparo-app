@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import FeatureCard from "@/components/marketing/FeatureCard";
+import FeatureCard from "@/components/landing/FeatureCard";
 import {
   FileText,
   Users,
