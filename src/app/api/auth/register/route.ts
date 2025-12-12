@@ -2,14 +2,14 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { hashPassword, generateToken } from '@/lib/auth'
-import { registerSchema } from '@/lib/validations/garage'
+import { registerCompleteSchema } from '@/lib/validations/garage'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    // Validation
-    const validation = registerSchema.safeParse(body)
+    // Validation complète (étape 1 + étape 2)
+    const validation = registerCompleteSchema.safeParse(body)
     if (!validation.success) {
       return NextResponse.json(
         {

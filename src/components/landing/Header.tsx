@@ -49,7 +49,7 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-4">
           {!user ? (
             <>
-              <Link href="/login">
+              <Link href="/login" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="font-medium">
                   Se connecter
                 </Button>
@@ -61,8 +61,8 @@ export default function Header() {
             </>
           ) : (
             <div className="flex items-center gap-3">
-              <Link href="/admin/dashboard">
-                <Button className="font-medium">Dashboard</Button>
+              <Link href="/admin/dashboard" target="_blank" rel="noopener noreferrer">
+                <Button className="font-medium">Tableau de bord</Button>
               </Link>
 
               <UserMenu user={user} />
@@ -127,7 +127,7 @@ export default function Header() {
               {/* FOOTER MOBILE */}
               {!user ? (
                 <div className="mt-auto pt-8 flex flex-col gap-3">
-                  <Link href="/login" onClick={() => setOpen(false)}>
+                  <Link href="/login" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
                     <Button variant="outline" className="w-full">
                       Se connecter
                     </Button>
@@ -138,8 +138,8 @@ export default function Header() {
                 </div>
               ) : (
                 <div className="mt-auto">
-                  <Link href="/admin/dashboard" onClick={() => setOpen(false)}>
-                    <Button className="w-full">Dashboard</Button>
+                  <Link href="/admin/dashboard" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+                    <Button className="w-full">Tableau de bord</Button>
                   </Link>
                 </div>
               )}

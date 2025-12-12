@@ -243,10 +243,30 @@ export function WaitlistForm() {
                   )}
                 />
               </div>
-              {/* Badge reCAPTCHA */}
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-                <Shield className="h-4 w-4" />
-                <span>Protégé par reCAPTCHA</span>
+              {/* Badge reCAPTCHA - Version discrète */}
+              <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+                <Shield className="h-3 w-3" />
+                <span>
+                  Ce site est protégé par reCAPTCHA. La{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    politique de confidentialité
+                  </a>{" "}
+                  et les{" "}
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:underline"
+                  >
+                    conditions d'utilisation
+                  </a>{" "}
+                  de Google s'appliquent.
+                </span>
               </div>
               {/* Submit */}
               <Button
@@ -282,15 +302,6 @@ export function WaitlistForm() {
           <p>
             En vous inscrivant, vous acceptez de recevoir nos communications.
             Vous pouvez vous désinscrire à tout moment.
-            <br />
-            <a
-              href="https://policies.google.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Politique de confidentialité Google
-            </a>
           </p>
         </CardFooter>
       </Card>
