@@ -85,7 +85,7 @@ export default function FeaturesSection() {
           >
             <CarouselContent className="ml-2 mr-6 py-6">
               {features.map((feature, index) => (
-                <CarouselItem key={index} className="pl-4 gap-6 basis-[70%] sm:basis-[55%] md:basis-[45%]">
+                <CarouselItem key={index} className="pl-4 gap-6 basis-[80%] sm:basis-[55%] md:basis-[45%]">
                   <FeatureCard {...feature} />
                 </CarouselItem>
               ))}

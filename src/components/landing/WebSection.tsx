@@ -8,10 +8,9 @@ export default function WebSection() {
   return (
     <section className="max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-y-10 items-center px-6 sm:mx-auto my-20 lg:my-32">
       <motion.div
-        initial={{ opacity: 0, x: -40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2 }}
-      >
+      initial={{ opacity: 0, translateX: "-100%" }}
+        whileInView={{ opacity: 1, translateX: 0 }}
+        transition={{ duration: 0.8 }}>
         <Image
           src="/images/img-screen.jpg"
           alt="Goparo App Screenshot"
@@ -22,9 +21,9 @@ export default function WebSection() {
         />
       </motion.div>
       <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2 }}
+      initial={{ opacity: 0, translateX: "100%" }}
+        whileInView={{ opacity: 1, translateX: 0 }}
+        transition={{ duration: 1 }}
         className="text-center mx-auto pb-5 lg:pb-10 px-6">
         <Badge className="bg-orange-100 text-orange-600 border-orange-500 px-4 py-2 mb-4 rounded-full font-semibold">
           Exclusivité Goparo
