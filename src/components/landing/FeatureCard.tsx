@@ -21,7 +21,7 @@ export default function FeatureCard({
 }: FeatureCardProps) {
   return (
     <motion.div whileHover={{scale: 1.05}} className="h-full">
-      <Card className="h-full rounded-3xl lg:shadow-lg lg:hover:shadow-2xl transition-shadow px-2 sm:px-5 py-10 duration-300">
+      <Card className="h-full rounded-3xl lg:shadow-lg lg:hover:shadow-2xl transition-shadow md:px-5 py-10 duration-300">
         <CardHeader className="flex flex-col gap-2 items-center sm:items-start text-center sm:text-start">
           <Icon size={iconSize} className={iconColor} />
           <CardTitle className="text-2xl font-bold">
