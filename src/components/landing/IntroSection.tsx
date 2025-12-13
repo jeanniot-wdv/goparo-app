@@ -65,7 +65,7 @@ export default function IntroSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.4 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
           className="overflow-hidden"
         >
           <Image

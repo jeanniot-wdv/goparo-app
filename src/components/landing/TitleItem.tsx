@@ -1,4 +1,4 @@
-// frontend/src/components/marketing/TitleItem.tsx
+// frontend/src/components/landing/TitleItem.tsx
 
 interface TitleItemProps {
   children: React.ReactNode; // Pour accepter des enfants

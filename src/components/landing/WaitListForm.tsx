@@ -110,7 +110,7 @@ export function WaitlistForm() {
   }
 
   return (
-    <section id="contact" className="mx-6 sm:mx-auto my-16 lg:my-32">
+    <section id="contact" className="px-6 mx-auto my-16 lg:my-32">
       <Card className="max-w-2xl shadow-xl mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl">

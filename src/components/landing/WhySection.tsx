@@ -51,8 +51,8 @@ export default function WhySection() {
   };
 
   return (
-    <section className="bg-gradient-to-l from-sky-600 to-violet-600 rounded-3xl items-center justify-center py-10 lg:py-32">
-      <div className="text-center mx-auto pb-5 lg:pb-10 px-6">
+    <section className="bg-gradient-to-l from-sky-600 to-violet-600 rounded-3xl items-center justify-center px-6 py-10 lg:py-32">
+      <div className="text-center mx-auto pb-5 lg:pb-10">
         <Badge className="bg-white text-violet-600 px-4 py-2 mb-4 rounded-full font-semibold">
           Conçu pour les garages
         </Badge>
@@ -71,7 +71,7 @@ export default function WhySection() {
         style={{ height: `${features.length * 100}vh` }}
       >
         <div className="sticky top-0 h-[100vh] flex items-center justify-center overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 xl:px-0 w-full">
+          <div className="max-w-7xl mx-auto xl:px-0 w-full">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-8">
               {features.map((feature, index) => {
                 const x = getCardTransform(index);
