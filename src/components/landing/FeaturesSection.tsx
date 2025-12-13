@@ -1,4 +1,4 @@
-// frontend/src/components/marketing/FeaturesSection.tsx
+// frontend/src/components/landing/FeaturesSection.tsx
 
 import TitleItem from "./TitleItem";
 import Link from "next/link";
@@ -74,24 +74,23 @@ export default function FeaturesSection() {
           <span className="text-emerald-500">garage moderne</span> a besoin
         </TitleItem>
       </div>
-      <div className="px-6">
         {/* Carousel pour mobile (jusqu'à lg) */}
         <div className="lg:hidden">
           <Carousel
             opts={{
               align: "start", // Alignement des slides
-              loop: true, // Boucle infinie
+              loop: false, // Boucle infinie
               slidesToScroll: 1, // Avance d'1 carte à la fois
             }}
           >
-            <CarouselContent className="-ml-2 sm:-ml-4 py-6">
+            <CarouselContent className="ml-2 mr-6 py-6">
               {features.map((feature, index) => (
-                <CarouselItem key={index} className="pl-4 gap-6 sm:basis-1/2">
+                <CarouselItem key={index} className="pl-4 gap-6 basis-[70%] sm:basis-[55%] md:basis-[45%]">
                   <FeatureCard {...feature} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center gap-8 mt-6">
+            <div className="flex justify-center gap-8">
               <CarouselPrevious className="static transform-none" />
               <CarouselNext className="static transform-none" />
             </div>
@@ -99,11 +98,10 @@ export default function FeaturesSection() {
         </div>
 
         {/* Grille pour desktop (à partir de lg) */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8">
+        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 px-6">
           {features.map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
-        </div>
       </div>
 
       <div className="mx-auto px-6 text-center">

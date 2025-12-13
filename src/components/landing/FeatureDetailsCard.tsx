@@ -1,4 +1,4 @@
-// frontend/src/components/marketing/FeatureCard.tsx
+// frontend/src/components/landing/FeatureCard.tsx
 
 import { LucideIcon, CircleCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

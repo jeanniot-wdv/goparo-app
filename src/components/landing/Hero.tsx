@@ -1,4 +1,4 @@
-// src/components/marketing/Hero.tsx
+// src/components/landing/Hero.tsx
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,10 +8,10 @@ import { Badge } from "@/components/ui/badge";
 export default function Hero() {
   return (
     <section
-      className="bg-gradient-to-tr from-white via-violet-100 to-sky-300 -mt-5 py-10 md:py-20 xl:py-32 px-5 sm:px-8 lg:px-10"
+      className="bg-gradient-to-tr from-white via-violet-100 to-violet-400 -mt-5 py-10 md:py-20 xl:py-32 px-5 sm:px-8 lg:px-10"
       id="hero"
     >
-      <div className="sm:flex flex-col lg:flex-row gap-5 items-center mb-20">
+      <div className="sm:flex flex-col lg:flex-row gap-5 items-center mb-10 sm:mb-20">
         {/* Left side */}
         <div className="lg:w-1/2 flex flex-col justify-center text-slate-900 mt-5">
           <div className="flex flex-wrap gap-x-4 gap-y-1">
@@ -38,14 +38,14 @@ export default function Hero() {
         </div>
 
         {/* Right side */}
-        <div className="lg:w-1/2 items-center rounded-3xl sm:rounded-full shadow-xl overflow-hidden">
+        <div className="lg:w-1/2 items-center rounded-[35%] shadow-2xl overflow-hidden">
           <Image
             src="/images/hero.png"
             alt="Goparo App Screenshot"
             width={600}
             height={400}
             priority
-            className="h-auto w-full object-cover"
+            className="w-full object-cover"
           />
         </div>
       </div>

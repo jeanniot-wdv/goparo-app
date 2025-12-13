@@ -192,9 +192,9 @@ export default function StatsSection() {
                 }}
                 className="relative group"
               >
-                <div className="h-full bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100">
+                <div className="h-full text-center bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-gray-100">
                   {/* Icône avec cercle coloré */}
-                  <div className={`${stat.bgColor} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`${stat.bgColor} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
                     <Icon className={`w-8 h-8 ${stat.color}`} strokeWidth={2} />
                   </div>
 

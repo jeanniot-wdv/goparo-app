@@ -1,4 +1,4 @@
-// frontend/src/components/marketing/FeatureItem.tsx
+// frontend/src/components/landing/FeatureItem.tsx
 
 interface TitleItemProps {
   bgColor: string;
