@@ -115,7 +115,7 @@ export async function POST(request: Request) {
         {
           success: false,
           message: 'Données invalides',
-          errors: validation.error.format(),
+          errors: validation.error.issues,
         },
         { status: 400 }
       )

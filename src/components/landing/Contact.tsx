@@ -67,7 +67,7 @@ export default function Contact() {
               </div>
               <div className="flex gap-3">
                 <Checkbox id="acceptTerms" className="mt-1 bg-background" />
-                <div className="font-[Inter] text-sm text-start text-muted">
+                <div className="text-sm text-start text-muted">
                   <Label htmlFor="acceptTerms" className="block leading-snug">
                     J’accepte que mes données personnelles soient utilisées pour
                     me recontacter dans le cadre de ma demande.

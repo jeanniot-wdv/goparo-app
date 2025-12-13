@@ -108,9 +108,8 @@ const config: Config = {
       },
       
       fontFamily: {
-        sans: ["var(--font-raleway)", "system-ui", "sans-serif"],
-        raleway: ["var(--font-raleway)", "system-ui", "sans-serif"],
-        inter: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        encodeSans: ["var(--font-nunito)", "system-ui", "sans-serif"],
       },
     },
   },

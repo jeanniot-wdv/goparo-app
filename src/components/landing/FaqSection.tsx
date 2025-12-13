@@ -75,7 +75,7 @@ export default function FaqSection() {
               <AccordionTrigger className="text-left text-lg">
                 {question}
               </AccordionTrigger>
-              <AccordionContent className="font-[Inter] text-sm text-muted-foreground">
+              <AccordionContent className="text-sm text-muted-foreground">
                 {answer}
               </AccordionContent>
             </AccordionItem>

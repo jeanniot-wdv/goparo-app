@@ -111,7 +111,7 @@
 }
 
 body {
-  font-family: var(--font-raleway), system-ui, sans-serif;
+  font-family: var(--font-nunito), system-ui, sans-serif;
 }
 
 @keyframes shimmer {
