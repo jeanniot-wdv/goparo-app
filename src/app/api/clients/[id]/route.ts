@@ -11,6 +11,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
@@ -29,7 +30,6 @@ export async function GET(
       )
     }
 
-    const { id } = await params
     const client = await prisma.client.findFirst({
       where: {
         id,
@@ -123,7 +123,7 @@ export async function PUT(
         {
           success: false,
           message: 'Données invalides',
-          errors: validation.error.format(),
+          errors: validation.error.issues,
         },
         { status: 400 }
       )

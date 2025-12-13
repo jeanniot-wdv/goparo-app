@@ -8,11 +8,10 @@ import { garageConfigSchema } from '@/lib/validations/garage'
 // GET - Récupérer les infos du garage
 export async function GET(
   request: Request,
-  // { params }: { params: { id: string } }
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params; // Déballage de la Promise
+    const { id } = await params
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
@@ -32,7 +31,6 @@ export async function GET(
     }
 
     // Vérifier que c'est bien son garage
-    // if (payload.garageId !== params.id) {
     if (payload.garageId !== id) {
       return NextResponse.json(
         { success: false, message: 'Non autorisé' },
@@ -41,7 +39,6 @@ export async function GET(
     }
 
     const garage = await prisma.garage.findUnique({
-      // where: { id: params.id },
       where: { id },
     })
 
@@ -68,10 +65,10 @@ export async function GET(
 // PUT - Mettre à jour le garage
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params; // Déballage de la Promise
+    const { id } = await params
     const cookieStore = await cookies()
     const token = cookieStore.get('token')?.value
 
@@ -91,7 +88,7 @@ export async function PUT(
     }
 
     // Vérifier que c'est bien son garage et qu'il est admin
-    if (payload.garageId !== params.id || payload.role !== 'ADMIN') {
+    if (payload.garageId !== id || payload.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, message: 'Non autorisé' },
         { status: 403 }
@@ -107,8 +104,7 @@ export async function PUT(
         {
           success: false,
           message: 'Données invalides',
-          errors: validation.error.format(),
-          // errors: validation.error.errors,
+          errors: validation.error.issues,
         },
         { status: 400 }
       )
@@ -118,7 +114,7 @@ export async function PUT(
 
     // Vérifier unicité SIRET (si changé)
     const existingGarage = await prisma.garage.findUnique({
-      where: { id: params.id },
+      where: { id },
     })
 
     if (!existingGarage) {
@@ -132,7 +128,7 @@ export async function PUT(
       const siretExists = await prisma.garage.findFirst({
         where: {
           siret: data.siret,
-          id: { not: params.id },
+          id: { not: id },
         },
       })
 
@@ -146,7 +142,7 @@ export async function PUT(
 
     // Mettre à jour
     const garage = await prisma.garage.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         nom: data.nom,
         siret: data.siret,
