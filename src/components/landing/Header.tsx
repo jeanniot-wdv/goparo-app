@@ -29,7 +29,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-6 font-medium">
             <Link href="#features" className="hover:text-violet-600">
               Fonctionnalités
             </Link>
@@ -50,19 +50,19 @@ export default function Header() {
           {!user ? (
             <>
               <Link href="/login" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="font-medium">
+                <Button variant="outline" className="text-base">
                   Se connecter
                 </Button>
               </Link>
 
               <Link href="/register">
-                <Button className="font-medium">Essayer gratuitement</Button>
+                <Button className="text-base">Essayer gratuitement</Button>
               </Link>
             </>
           ) : (
             <div className="flex items-center gap-3">
               <Link href="/admin/dashboard" target="_blank" rel="noopener noreferrer">
-                <Button className="font-medium">Tableau de bord</Button>
+                <Button className="text-base">Tableau de bord</Button>
               </Link>
 
               <UserMenu user={user} />
@@ -109,7 +109,7 @@ export default function Header() {
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-3 text-lg">
+              <nav className="flex flex-col gap-3">
                 <Link href="#features" onClick={() => setOpen(false)}>
                   Fonctionnalités
                 </Link>

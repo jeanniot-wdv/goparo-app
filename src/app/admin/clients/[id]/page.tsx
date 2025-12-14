@@ -1,13 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import { ArrowLeft, Edit, Mail, Phone, MapPin, Car, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
-export default function ClientDetailPage({ params }: { params: { id: string } }) {
+export default function ClientDetailPage() {
+  const params = useParams()
+  const id = params.id as string
   const router = useRouter()
   const [client, setClient] = useState<any>(null)
   const [loading, setLoading] = useState(true)
@@ -15,7 +17,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
   useEffect(() => {
     async function fetchClient() {
       try {
-        const res = await fetch(`/api/clients/${params.id}`)
+        const res = await fetch(`/api/clients/${id}`)
         const data = await res.json()
 
         if (data.success) {
@@ -31,7 +33,7 @@ export default function ClientDetailPage({ params }: { params: { id: string } })
     }
 
     fetchClient()
-  }, [params.id, router])
+  }, [id, router])
 
   if (loading) {
     return (

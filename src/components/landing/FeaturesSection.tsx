@@ -67,41 +67,47 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="max-w-6xl mx-auto py-16 md:py-20 lg:py-32">
+    <section
+      id="features"
+      className="max-w-6xl mx-auto py-16 md:py-20 lg:py-32"
+    >
       <div className="max-w-6xl text-center mx-auto pb-5 lg:pb-10 px-6">
         <TitleItem text="Un ensemble d'outils pensés pour la gestion complète d'un garage, accessible partout.">
           Tout ce dont un{" "}
           <span className="text-emerald-500">garage moderne</span> a besoin
         </TitleItem>
       </div>
-        {/* Carousel pour mobile (jusqu'à lg) */}
-        <div className="lg:hidden">
-          <Carousel
-            opts={{
-              align: "start", // Alignement des slides
-              loop: false, // Boucle infinie
-              slidesToScroll: 1, // Avance d'1 carte à la fois
-            }}
-          >
-            <CarouselContent className="ml-2 mr-6 py-6">
-              {features.map((feature, index) => (
-                <CarouselItem key={index} className="pl-4 gap-6 basis-[80%] sm:basis-[55%] md:basis-[45%]">
-                  <FeatureCard {...feature} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-8">
-              <CarouselPrevious className="static transform-none" />
-              <CarouselNext className="static transform-none" />
-            </div>
-          </Carousel>
-        </div>
+      {/* Carousel pour mobile (jusqu'à lg) */}
+      <div className="lg:hidden">
+        <Carousel
+          opts={{
+            align: "start", // Alignement des slides
+            loop: false, // Boucle infinie
+            slidesToScroll: 1, // Avance d'1 carte à la fois
+          }}
+        >
+          <CarouselContent className="ml-2 mr-6 py-6">
+            {features.map((feature, index) => (
+              <CarouselItem
+                key={index}
+                className="pl-4 gap-6 basis-[80%] sm:basis-[55%] md:basis-[45%]"
+              >
+                <FeatureCard {...feature} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex justify-center gap-8">
+            <CarouselPrevious className="static transform-none" />
+            <CarouselNext className="static transform-none" />
+          </div>
+        </Carousel>
+      </div>
 
-        {/* Grille pour desktop (à partir de lg) */}
-        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 px-6">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} />
-          ))}
+      {/* Grille pour desktop (à partir de lg) */}
+      <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 px-6">
+        {features.map((feature, index) => (
+          <FeatureCard key={index} {...feature} />
+        ))}
       </div>
 
       <div className="mx-auto px-6 text-center">
