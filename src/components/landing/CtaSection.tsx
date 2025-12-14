@@ -13,7 +13,7 @@ export default function CtaSection() {
         transition={{ duration: 1 }}
       >
         <div className="max-w-6xl text-center mx-auto mb-6">
-          <TitleItem text="Rejoignez les garages qui modernisent leur gestion avec Goparo. Commencez gratuitement dès aujourd'hui et découvrez la simplicité d'une solution tout-en-un conçue pour vous.">
+          <TitleItem text="Rejoignez les garages qui gagnent du temps et des clients. Commencez gratuitement dès aujourd'hui et découvrez la simplicité d'une solution tout-en-un conçue pour vous.">
             Prêt à transformer la gestion de votre garage ?
           </TitleItem>
         </div>
@@ -25,6 +25,7 @@ export default function CtaSection() {
             Commencer gratuitement
           </Button>
         </Link>
+        <p className="text-orange-200 mt-4">Essai gratuit • Sans engagement</p>
       </motion.section>
   )
 }
