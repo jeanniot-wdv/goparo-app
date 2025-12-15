@@ -90,7 +90,7 @@ export default function FeaturesSection() {
             {features.map((feature, index) => (
               <CarouselItem
                 key={index}
-                className="pl-4 gap-6 basis-[80%] sm:basis-[55%] md:basis-[45%]"
+                className="pl-4 gap-6 basis-[85%] sm:basis-[55%] md:basis-[45%]"
               >
                 <FeatureCard {...feature} />
               </CarouselItem>
