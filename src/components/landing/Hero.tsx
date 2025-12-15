@@ -11,9 +11,9 @@ export default function Hero() {
       className="bg-gradient-to-tr from-white via-violet-100 to-violet-400 -mt-5 py-10 md:py-20 xl:py-32 px-5 sm:px-8 lg:px-10"
       id="hero"
     >
-      <div className="sm:flex flex-col lg:flex-row gap-5 items-center mb-10 sm:mb-20">
+      <div className="max-w-7xl grid grid-cols-1 lg:grid-cols-2 lg:gap-10 items-center mx-auto mb-10 sm:mb-20">
         {/* Left side */}
-        <div className="lg:w-1/2 flex flex-col justify-center text-slate-900 mt-5">
+        <div className=" text-slate-900">
           <div className="flex flex-wrap gap-x-4 gap-y-1">
             <Badge className="bg-orange-100 text-orange-600 px-4 py-2 mb-2 border-orange-600 rounded-full font-semibold">
               Site web inclus
@@ -38,7 +38,7 @@ export default function Hero() {
         </div>
 
         {/* Right side */}
-        <div className="lg:w-1/2 items-center rounded-[35%] shadow-2xl overflow-hidden">
+        <div className="rounded-[30%] shadow-2xl overflow-hidden">
           <Image
             src="/images/hero.png"
             alt="Goparo App Screenshot"

@@ -13,7 +13,7 @@ export default function WebSection() {
         transition={{ duration: 1.2 }}
       >
         <Image
-          src="/images/img-screen.jpg"
+          src="/images/img-hero.jpg"
           alt="Goparo App Screenshot"
           width={600}
           height={400}
