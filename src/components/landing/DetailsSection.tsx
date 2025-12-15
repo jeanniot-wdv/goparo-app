@@ -154,7 +154,7 @@ export default function DetailsSection() {
     return (
       <motion.div
         style={{ opacity, scale }}
-        className="absolute inset-0 flex items-center justify-center mt-5 px-6"
+        className="absolute inset-0 flex items-center justify-center px-6"
       >
         <div className="w-full max-w-6xl bg-white rounded-2xl shadow-2xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
