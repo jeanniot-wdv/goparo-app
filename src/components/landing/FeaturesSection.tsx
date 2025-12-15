@@ -69,7 +69,7 @@ export default function FeaturesSection() {
   return (
     <section
       id="features"
-      className="max-w-6xl mx-auto py-16 md:py-20 lg:py-32"
+      className="bg-white -mt-24 py-16 md:py-20 lg:py-32"
     >
       <div className="max-w-6xl text-center mx-auto pb-5 lg:pb-10 px-6">
         <TitleItem text="Un ensemble d'outils pensés pour la gestion complète d'un garage, accessible partout.">
@@ -104,7 +104,7 @@ export default function FeaturesSection() {
       </div>
 
       {/* Grille pour desktop (à partir de lg) */}
-      <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 px-6">
+      <div className="hidden max-w-6xl mx-auto lg:grid lg:grid-cols-3 lg:gap-8 px-6">
         {features.map((feature, index) => (
           <FeatureCard key={index} {...feature} />
         ))}

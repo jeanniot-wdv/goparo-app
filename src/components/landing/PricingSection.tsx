@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import TitleItem from "./TitleItem";
+import Link from "next/link";
 
 const plans = [
   {
@@ -70,7 +71,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="bg-gradient-to-tl from-sky-600 to-violet-600 rounded-3xl flex justify-center sm:mx-6 py-16 lg:py-32"
+      className="bg-gradient-to-tl from-sky-600 to-violet-600 rounded-3xl flex justify-center -mt-40 sm:mx-6 py-16 lg:py-32"
     >
       <div className="text-center mx-auto px-6">
         <Badge className="bg-white text-sky-600 border-sky-500 px-4 py-2 mb-4 rounded-full font-semibold">
@@ -89,7 +90,7 @@ export default function PricingSection() {
               <div
                 key={plan.name}
                 className={cn(
-                  "bg-white hover:scale-102 hover:z-50 hover:shadow-2xl duration-300 hover:scale-105 relative flex flex-col h-full border p-6",
+                  "bg-white sm:hover:scale-105 sm:hover:shadow-2xl hover:z-50 duration-300 sm:hover:rounded-3xl relative flex flex-col h-full border p-6",
                   {
                     "border-2 border-primary bg-gradient-to-bl from-sky-200 to-white":
                       plan.isPopular,
@@ -127,13 +128,14 @@ export default function PricingSection() {
                     </li>
                   ))}
                 </ul>
+                <Link href="/register">
                 <Button
-                  // variant={plan.isPopular ? "default" : "outline"}
                   size="lg"
                   className="w-full mt-6"
                 >
                   {plan.buttonText}
                 </Button>
+                </Link>
               </div>
             ))}
           </div>
