@@ -36,13 +36,28 @@ export type RegisterCompleteData = z.infer<typeof registerCompleteSchema>
 export const garageConfigSchema = z.object({
   // Informations générales
   nom: z.string().min(2, 'Nom requis'),
+  
+  // NON MODIFIABLE après création (lecture seule dans le form)
   siret: z.string().min(14, 'SIRET invalide').max(14),
+  
+  // Modifiable avec attention
+  formeJuridique: z.string().optional().or(z.literal('')),
+  numeroRCS: z.string().optional().or(z.literal('')),
+  capitalSocial: z.number().optional(),
+  codeAPE: z.string().optional().or(z.literal('')),
+  
   adresse: z.string().min(5, 'Adresse requise'),
   codePostal: z.string().min(4, 'Code postal requis'),
   ville: z.string().min(2, 'Ville requise'),
   email: z.string().email('Email invalide'),
   telephone: z.string().min(10, 'Téléphone invalide'),
   numeroTVA: z.string().optional().or(z.literal('')),
+  
+  // Assurance professionnelle (OBLIGATOIRE artisan)
+  assurancePro: z.string().optional().or(z.literal('')),
+  numeroPolice: z.string().optional().or(z.literal('')),
+  garantiesAssurance: z.string().optional().or(z.literal('')),
+  
   logo: z.string().optional().or(z.literal('')),
   
   // Configuration facturation

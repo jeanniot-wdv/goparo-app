@@ -1,8 +1,8 @@
 // src/app/admin/clients/page.tsx
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   Plus,
   Search,
@@ -12,9 +12,9 @@ import {
   Eye,
   Car,
   FileText,
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,81 +30,63 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ClientModal } from '@/components/admin/clients/ClientModal'
-import { DeleteClientDialog } from '@/components/admin/clients/DeleteClientDialog'
-import { Badge } from '@/components/ui/badge'
+} from "@/components/ui/dropdown-menu";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DeleteClientDialog } from "@/components/admin/clients/DeleteClientDialog";
 
 export default function ClientsPage() {
-  const router = useRouter()
-  const [clients, setClients] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [modalOpen, setModalOpen] = useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedClient, setSelectedClient] = useState<any>(null)
+  const router = useRouter();
+  const [clients, setClients] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<any>(null);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
     total: 0,
     totalPages: 0,
-  })
+  });
 
   const fetchClients = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const params = new URLSearchParams({
         search,
         page: pagination.page.toString(),
         limit: pagination.limit.toString(),
-      })
+      });
 
-      const res = await fetch(`/api/clients?${params}`)
-      const data = await res.json()
+      const res = await fetch(`/api/clients?${params}`);
+      const data = await res.json();
 
       if (data.success) {
-        setClients(data.data)
-        setPagination(data.pagination)
+        setClients(data.data);
+        setPagination(data.pagination);
       }
     } catch (error) {
-      console.error('Fetch clients error:', error)
+      console.error("Fetch clients error:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchClients()
-  }, [pagination.page, search])
-
-  const handleEdit = (client: any) => {
-    setSelectedClient(client)
-    setModalOpen(true)
-  }
+    fetchClients();
+  }, [pagination.page, search]);
 
   const handleDelete = (client: any) => {
-    setSelectedClient(client)
-    setDeleteDialogOpen(true)
-  }
-
-  const handleNewClient = () => {
-    setSelectedClient(null)
-    setModalOpen(true)
-  }
-
-  const handleModalClose = () => {
-    setModalOpen(false)
-    setSelectedClient(null)
-  }
+    setSelectedClient(client);
+    setDeleteDialogOpen(true);
+  };
 
   const handleSuccess = () => {
-    fetchClients()
-  }
+    fetchClients();
+  };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('fr-FR')
-  }
+    return new Date(date).toLocaleDateString("fr-FR");
+  };
 
   return (
     <div className="space-y-6">
@@ -112,12 +94,10 @@ export default function ClientsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Clients</h1>
-          <p className="text-gray-600 mt-1">
-            Gérez votre base de clients
-          </p>
+          <p className="text-gray-600 mt-1">Gérez votre base de clients</p>
         </div>
-        <Button onClick={handleNewClient}>
-          <Plus className="mr-2 h-4 w-4" />
+        <Button onClick={() => router.push("/admin/clients/nouveau")}>
+          <Plus className="h-4 w-4" />
           Nouveau client
         </Button>
       </div>
@@ -184,7 +164,7 @@ export default function ClientsPage() {
           ) : clients.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500">Aucun client trouvé</p>
-              <Button onClick={handleNewClient} className="mt-4">
+              <Button onClick={() => router.push("/admin/clients/nouveau")} className="mt-4">
                 Créer le premier client
               </Button>
             </div>
@@ -259,7 +239,9 @@ export default function ClientsPage() {
                               <Eye className="mr-2 h-4 w-4" />
                               Voir détails
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleEdit(client)}>
+                            <DropdownMenuItem
+                              onClick={() => router.push(`/admin/clients/${client.id}/modifier`)}
+                            >
                               <Edit className="mr-2 h-4 w-4" />
                               Modifier
                             </DropdownMenuItem>
@@ -320,14 +302,6 @@ export default function ClientsPage() {
         </CardContent>
       </Card>
 
-      {/* Modals */}
-      <ClientModal
-        open={modalOpen}
-        onClose={handleModalClose}
-        onSuccess={handleSuccess}
-        client={selectedClient}
-      />
-
       {selectedClient && (
         <DeleteClientDialog
           open={deleteDialogOpen}
@@ -337,5 +311,5 @@ export default function ClientsPage() {
         />
       )}
     </div>
-  )
+  );
 }

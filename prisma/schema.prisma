@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// prisma/schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -10,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // directUrl = env("DATABASE_URL") // Pour Supabase avec pgBouncer
 }
 
 // ============================================
@@ -22,13 +19,26 @@ model Garage {
   id                    String   @id @default(uuid())
   nom                   String
   slug                  String   @unique // garage-dupont
+  
+  // Informations légales COMPLÈTES (2026)
   siret                 String   @unique
+  formeJuridique        String?  // SARL, SAS, EI, EURL...
+  numeroRCS             String?  // RCS + ville
+  capitalSocial         Decimal? @db.Decimal(10, 2) // Si société
+  codeAPE               String?  // Code NAF/APE
+  
   adresse               String
   codePostal            String
   ville                 String
   email                 String
   telephone             String
   numeroTVA             String?
+  
+  // Assurance professionnelle (OBLIGATOIRE artisan)
+  assurancePro          String?  // Nom assureur
+  numeroPolice          String?  // N° police
+  garantiesAssurance    String?  @db.Text // Détail garanties
+  
   logo                  String?
   
   // Configuration facturation
@@ -133,14 +143,33 @@ enum Role {
 
 model Client {
   id            String      @id @default(uuid())
+  
+  // Type de client (OBLIGATOIRE pour facturation)
+  typeClient    TypeClient  @default(PARTICULIER)
+  
+  // Particulier
   civilite      String?     // M., Mme, Autre
   nom           String
   prenom        String
+  
+  // Professionnel (si applicable)
+  raisonSociale String?     // Nom entreprise
+  siretClient   String?     // SIRET si pro
+  numeroTVAClient String?   // N° TVA intracommunautaire
+  
   email         String?
   telephone     String
-  adresse       String?
-  codePostal    String?
-  ville         String?
+  
+  // Adresse COMPLÈTE (OBLIGATOIRE facturation 2026)
+  adresse       String
+  complementAdresse String? // Bat, Appt, etc.
+  codePostal    String
+  ville         String
+  pays          String      @default("France")
+  
+  // Consentement RGPD
+  consentementRGPD Boolean  @default(false)
+  dateConsentement DateTime?
   
   // Notes internes
   notes         String?
@@ -157,6 +186,13 @@ model Client {
   @@index([garageId])
   @@index([email])
   @@index([telephone])
+  @@index([siretClient])
+}
+
+enum TypeClient {
+  PARTICULIER
+  PROFESSIONNEL
+  ADMINISTRATION
 }
 
 model Vehicule {
@@ -200,6 +236,7 @@ model Facture {
   statut            StatutFacture   @default(BROUILLON)
   
   dateEmission      DateTime        @default(now())
+  datePrestation    DateTime?       // Date livraison/prestation (OBLIGATOIRE)
   dateEcheance      DateTime?
   datePaiement      DateTime?
   
@@ -220,17 +257,40 @@ model Facture {
   heuresTravail     Decimal         @default(0) @db.Decimal(10, 2)
   tarifHoraire      Decimal         @db.Decimal(10, 2)
   
-  // Totaux (calculés mais stockés pour performance)
+  // Totaux (calculés mais stockés)
   totalHT           Decimal         @db.Decimal(10, 2)
   totalTVA          Decimal         @db.Decimal(10, 2)
   totalTTC          Decimal         @db.Decimal(10, 2)
   
-  // Paiement
+  // Paiement & conditions (OBLIGATOIRE 2026)
   modePaiement      String?         // CB, Espèces, Chèque, Virement
+  delaiPaiement     Int             @default(30) // Jours
+  conditionsReglement String?       @db.Text
   
-  // Notes et conditions
-  notes             String?
-  conditionsReglement String?
+  // Pénalités de retard (OBLIGATOIRE)
+  tauxPenaliteRetard Decimal        @default(10.5) @db.Decimal(5, 2) // % annuel
+  indemniteForfaitaire Decimal      @default(40) @db.Decimal(10, 2) // € fixe
+  
+  // Escompte (si applicable)
+  tauxEscompte      Decimal?        @db.Decimal(5, 2)
+  montantEscompte   Decimal?        @db.Decimal(10, 2)
+  
+  // Notes et mentions légales
+  notes             String?         @db.Text
+  mentionsLegales   String?         @db.Text // Garanties, assurance, etc.
+  
+  // Ordre de réparation (secteur auto - OBLIGATOIRE)
+  ordreReparationNumero String?     @unique
+  ordreReparationDate   DateTime?
+  accordClientSigne Boolean         @default(false)
+  
+  // Facturation électronique (2026)
+  formatElectronique String?        // FACTUR-X, CII
+  hashDocument      String?         // Hash SHA-256 pour intégrité
+  signatureElectronique String?     @db.Text // Signature numérique
+  
+  // Archivage légal (6 ans)
+  dateArchivage     DateTime?
   
   // Conversion devis → facture
   devisOrigineId    String?
@@ -243,6 +303,7 @@ model Facture {
   @@index([numero])
   @@index([statut])
   @@index([dateEmission])
+  @@index([ordreReparationNumero])
 }
 
 enum TypeFacture {
@@ -269,8 +330,13 @@ model LigneFacture {
   
   ordre         Int      @default(0) // Pour l'ordre d'affichage
   type          TypeLigne @default(PIECE)
+  
+  // Description PRÉCISE (OBLIGATOIRE 2026)
   designation   String
+  reference     String?  // Référence pièce/prestation
+  
   quantite      Decimal   @db.Decimal(10, 3)
+  unite         String    @default("unité") // unité, heure, m², kg...
   prixUnitaireHT Decimal  @db.Decimal(10, 2)
   tauxTVA       Decimal   @default(20) @db.Decimal(5, 2)
   
@@ -278,6 +344,10 @@ model LigneFacture {
   totalHT       Decimal   @db.Decimal(10, 2)
   totalTVA      Decimal   @db.Decimal(10, 2)
   totalTTC      Decimal   @db.Decimal(10, 2)
+  
+  // Garantie légale (pièces vendues - OBLIGATOIRE)
+  garantieLegale Boolean  @default(false)
+  dureeGarantie Int?      // Mois (24 pour pièces neuves)
   
   // Référence pièce (optionnel)
   pieceId       String?

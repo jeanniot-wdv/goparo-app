@@ -64,7 +64,8 @@ export default function ClientDetailPage() {
             <p className="text-gray-600">Fiche client</p>
           </div>
         </div>
-        <Button>
+        <Button
+          onClick={() => router.push(`/admin/clients/${client.id}/modifier`)}>
           <Edit className="mr-2 h-4 w-4" />
           Modifier
         </Button>
