@@ -20,6 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription
 } from '@/components/ui/form'
 import {
   Select,
@@ -63,18 +64,42 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
   useEffect(() => {
     if (client) {
       form.reset({
+        typeClient: client.typeClient || 'PARTICULIER',
         civilite: client.civilite || 'M',
         nom: client.nom,
         prenom: client.prenom,
+        raisonSociale: client.raisonSociale || '',
+        siretClient: client.siretClient || '',
+        numeroTVAClient: client.numeroTVAClient || '',
         email: client.email || '',
         telephone: client.telephone,
         adresse: client.adresse || '',
+        complementAdresse: client.complementAdresse || '',
         codePostal: client.codePostal || '',
         ville: client.ville || '',
+        pays: client.pays || 'France',
+        consentementRGPD: client.consentementRGPD || false,
         notes: client.notes || '',
       })
     } else {
-      form.reset()
+      form.reset({
+        typeClient: 'PARTICULIER',
+        civilite: 'M',
+        nom: '',
+        prenom: '',
+        raisonSociale: '',
+        siretClient: '',
+        numeroTVAClient: '',
+        email: '',
+        telephone: '',
+        adresse: '',
+        complementAdresse: '',
+        codePostal: '',
+        ville: '',
+        pays: 'France',
+        consentementRGPD: false,
+        notes: '',
+      })
     }
   }, [client, form])
 
@@ -124,13 +149,13 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {/* Civilité */}
+            {/* Type de client */}
             <FormField
               control={form.control}
-              name="civilite"
+              name="typeClient"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Civilité</FormLabel>
+                  <FormLabel>Type de client *</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -141,15 +166,93 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="M">M.</SelectItem>
-                      <SelectItem value="Mme">Mme</SelectItem>
-                      <SelectItem value="Autre">Autre</SelectItem>
+                      <SelectItem value="PARTICULIER">Particulier</SelectItem>
+                      <SelectItem value="PROFESSIONNEL">Professionnel</SelectItem>
+                      <SelectItem value="ADMINISTRATION">Administration</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* Si PROFESSIONNEL : Raison sociale + SIRET */}
+            {form.watch('typeClient') === 'PROFESSIONNEL' && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="raisonSociale"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Raison sociale *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Garage Martin SARL" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="siretClient"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>SIRET</FormLabel>
+                        <FormControl>
+                          <Input placeholder="12345678900012" maxLength={14} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="numeroTVAClient"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>N° TVA</FormLabel>
+                        <FormControl>
+                          <Input placeholder="FR12345678900" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </>
+            )}
+
+            {/* Civilité (seulement si PARTICULIER) */}
+            {form.watch('typeClient') === 'PARTICULIER' && (
+              <FormField
+                control={form.control}
+                name="civilite"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Civilité</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionnez" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="M">M.</SelectItem>
+                        <SelectItem value="Mme">Mme</SelectItem>
+                        <SelectItem value="Autre">Autre</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             {/* Nom & Prénom */}
             <div className="grid grid-cols-2 gap-4">
@@ -217,15 +320,30 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
               />
             </div>
 
-            {/* Adresse */}
+            {/* Adresse COMPLÈTE (OBLIGATOIRE) */}
             <FormField
               control={form.control}
               name="adresse"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Adresse</FormLabel>
+                  <FormLabel>Adresse *</FormLabel>
                   <FormControl>
                     <Input placeholder="15 Rue de la République" {...field} />
+                  </FormControl>
+                  <FormDescription>Adresse complète obligatoire pour facturation</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="complementAdresse"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Complément d'adresse</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Bât. A, Appt. 12" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -233,13 +351,13 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
             />
 
             {/* Code Postal & Ville */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <FormField
                 control={form.control}
                 name="codePostal"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Code postal</FormLabel>
+                    <FormLabel>Code postal *</FormLabel>
                     <FormControl>
                       <Input placeholder="75001" {...field} />
                     </FormControl>
@@ -248,20 +366,62 @@ export function ClientModal({ open, onClose, onSuccess, client }: ClientModalPro
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="ville"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ville</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Paris" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="col-span-2">
+                <FormField
+                  control={form.control}
+                  name="ville"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ville *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Paris" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
+
+            <FormField
+              control={form.control}
+              name="pays"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Pays</FormLabel>
+                  <FormControl>
+                    <Input placeholder="France" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* RGPD */}
+            <FormField
+              control={form.control}
+              name="consentementRGPD"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <input
+                      type="checkbox"
+                      checked={field.value}
+                      onChange={field.onChange}
+                      className="mt-1"
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Consentement RGPD
+                    </FormLabel>
+                    <FormDescription>
+                      Le client accepte le traitement de ses données personnelles
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
 
             {/* Notes */}
             <FormField
