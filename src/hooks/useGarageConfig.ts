@@ -14,10 +14,7 @@ export function useGarageConfig() {
   const [success, setSuccess] = useState<boolean>(false)
 
   const form = useForm<GarageConfigFormData>({
-    resolver: zodResolver(garageConfigSchema) as Resolver<GarageConfigFormData>,
-    defaultValues: {
-      pays: 'France',
-    },
+    resolver: zodResolver(garageConfigSchema) as Resolver<GarageConfigFormData>
   })
 
   const fetchGarage = async () => {
