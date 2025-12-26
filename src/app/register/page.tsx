@@ -67,6 +67,7 @@ export default function RegisterPage() {
     resolver: zodResolver(registerStep2Schema),
     defaultValues: {
       nomGarage: "",
+      formeJuridique: "",
       siret: "",
       adresse: "",
       codePostal: "",

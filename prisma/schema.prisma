@@ -20,35 +20,46 @@ model Garage {
   nom                   String
   slug                  String   @unique // garage-dupont
   
-  // Informations légales COMPLÈTES (2026)
+  // ========== INFORMATIONS LÉGALES COMPLÈTES (2026) ==========
   siret                 String   @unique
-  formeJuridique        String?  // SARL, SAS, EI, EURL...
+  formeJuridique        String   // SARL, SAS, EI, EURL... (OBLIGATOIRE)
   numeroRCS             String?  // RCS + ville
   capitalSocial         Decimal? @db.Decimal(10, 2) // Si société
   codeAPE               String?  // Code NAF/APE
   
+  // ========== ADRESSE COMPLÈTE ==========
   adresse               String
+  complementAdresse     String?  // Bâtiment, étage, etc.
   codePostal            String
   ville                 String
+  pays                  String   @default("France")
+  
+  // ========== CONTACT ==========
   email                 String
   telephone             String
-  numeroTVA             String?
+  numeroTVA             String?  // TVA intracommunautaire
   
-  // Assurance professionnelle (OBLIGATOIRE artisan)
+  // ========== ASSURANCE PROFESSIONNELLE (OBLIGATOIRE ARTISAN) ==========
   assurancePro          String?  // Nom assureur
   numeroPolice          String?  // N° police
   garantiesAssurance    String?  @db.Text // Détail garanties
   
   logo                  String?
   
-  // Configuration facturation
+  // ========== CONFIGURATION FACTURATION ==========
   tarifHoraire          Decimal  @default(50) @db.Decimal(10, 2)
   prefixeFacture        String   @default("FA")
   prefixeDevis          String   @default("DE")
   prochainNumeroFacture Int      @default(1)
   prochainNumeroDevis   Int      @default(1)
   
-  // Modules activés
+  // ========== CONDITIONS DE PAIEMENT (NOUVELLES 2026) ==========
+  delaiPaiement         Int      @default(30) // Jours
+  tauxPenaliteRetard    Decimal  @default(10.5) @db.Decimal(5, 2) // % annuel
+  indemniteForfaitaire  Decimal  @default(40) @db.Decimal(10, 2) // € fixe
+  tauxEscompte          Decimal? @db.Decimal(5, 2) // % si paiement anticipé
+  
+  // ========== MODULES ACTIVÉS ==========
   subscriptionPlan      Plan     @default(FREE)
   moduleVitrine         Boolean  @default(false)
   modulePieces          Boolean  @default(false)
@@ -61,11 +72,11 @@ model Garage {
   limiteUtilisateurs    Int      @default(1)
   limiteStockageMo      Int      @default(100)
   
-  // Domaine personnalisé
+  // ========== DOMAINE PERSONNALISÉ ==========
   domaineCustom         String?  @unique
   domaineVerifie        Boolean  @default(false)
   
-  // Abonnement Stripe
+  // ========== ABONNEMENT STRIPE ==========
   stripeCustomerId      String?  @unique
   stripeSubscriptionId  String?
   subscriptionStatus    SubscriptionStatus @default(TRIAL)
@@ -84,6 +95,7 @@ model Garage {
 
   @@index([slug])
   @@index([stripeCustomerId])
+  @@index([siret])
 }
 
 enum Plan {
