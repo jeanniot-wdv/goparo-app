@@ -23,17 +23,36 @@ export const registerStep2Schema = z.object({
     message: 'La forme juridique est obligatoire',
   }),
   siret: z.string().min(14, 'SIRET invalide (14 chiffres)').max(14),
+  capitalSocial: z.number().optional(),
   adresse: z.string().min(5, 'Adresse requise'),
   codePostal: z.string().min(4, 'Code postal requis'),
   ville: z.string().min(2, 'Ville requise'),
+  pays: z.string().min(1, 'Pays requis'),
   telephone: z.string().min(10, 'Téléphone invalide'),
   emailGarage: z.string().email('Email invalide'),
 })
 
 export type RegisterStep2Data = z.infer<typeof registerStep2Schema>
 
+// ÉTAPE 3 : Assurance & TVA
+export const registerStep3Schema = z.object({
+  assurancePro: z.string().min(2, `Nom de l\'assureur requis`),
+  numeroPolice: z.string().min(5, 'Numéro de police requis'),
+  garantiesAssurance: z.string().min(10, 'Détaillez les garanties couvertes'),
+  numeroTVA: z.string()
+    .regex(/^FR\d{11}$/, { message: 'Format invalide (ex: FR12345678900)' })
+    .optional()
+    .or(z.literal('')),
+  codeAPE: z.string()
+    .regex(/^\d{4}[A-Z]$/, { message: 'Format invalide (ex: 4520A)' })
+    .optional()
+    .or(z.literal('')),
+})
+
+export type RegisterStep3Data = z.infer<typeof registerStep3Schema>
+
 // Schéma complet pour l'API
-export const registerCompleteSchema = registerStep1Schema.merge(registerStep2Schema)
+export const registerCompleteSchema = registerStep1Schema.merge(registerStep2Schema).merge(registerStep3Schema)
 export type RegisterCompleteData = z.infer<typeof registerCompleteSchema>
 
 // ============================================
@@ -86,7 +105,7 @@ export const garageConfigSchema = z.object({
 
   // ========== ASSURANCE PROFESSIONNELLE (OBLIGATOIRE ARTISAN) ==========
   assurancePro: z.string()
-    .min(2, { message: 'Le nom de l\'assureur est requis' })
+    .min(2, { message: `Le nom de l\'assureur est requis` })
     .optional()
     .or(z.literal('')),
   
@@ -102,7 +121,7 @@ export const garageConfigSchema = z.object({
 
   // ========== MÉDIA ==========
   logo: z.string()
-    .url({ message: 'L\'URL du logo doit être valide' })
+    .url({ message: `L\'URL du logo doit être valide` })
     .optional()
     .or(z.literal('')),
 
@@ -179,7 +198,7 @@ export const garageConfigSchema = z.object({
   // L'assurance est obligatoire pour toutes les formes (artisan)
   return data.assurancePro && data.numeroPolice && data.garantiesAssurance
 }, {
-  message: 'L\'assurance professionnelle est obligatoire pour les artisans',
+  message: `L\'assurance professionnelle est obligatoire pour les artisans`,
   path: ['assurancePro'],
 })
 

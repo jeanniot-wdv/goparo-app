@@ -273,6 +273,7 @@ export default function ConfigurationPage() {
                           <Select
                             onValueChange={field.onChange}
                             value={field.value}
+                            disabled={true}
                           >
                             <FormControl>
                               <SelectTrigger>
@@ -306,6 +307,7 @@ export default function ConfigurationPage() {
                               placeholder="12345678901234"
                               maxLength={14}
                               {...field}
+                              disabled={true}
                             />
                           </FormControl>
                           <FormDescription>

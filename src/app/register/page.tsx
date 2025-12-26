@@ -6,11 +6,14 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FORMES_JURIDIQUES } from "@/lib/constants/legal";
 import {
   registerStep1Schema,
   registerStep2Schema,
+  registerStep3Schema,
   type RegisterStep1Data,
   type RegisterStep2Data,
+  type RegisterStep3Data,
 } from "@/lib/validations/garage";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -25,12 +28,21 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import {
   Loader2,
@@ -39,16 +51,18 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
+  Shield,
 } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Données de l'étape 1 (conservées en mémoire)
   const [step1Data, setStep1Data] = useState<RegisterStep1Data | null>(null);
+  const [step2Data, setStep2Data] = useState<RegisterStep2Data | null>(null);
 
   // Formulaire étape 1
   const formStep1 = useForm<RegisterStep1Data>({
@@ -69,13 +83,32 @@ export default function RegisterPage() {
       nomGarage: "",
       formeJuridique: "",
       siret: "",
+      capitalSocial: undefined,
       adresse: "",
       codePostal: "",
       ville: "",
+      pays: "",
       telephone: "",
       emailGarage: "",
     },
   });
+
+  // Formulaire étape 3
+  const formStep3 = useForm({
+    resolver: zodResolver(registerStep3Schema),
+    defaultValues: {
+      assurancePro: "",
+      numeroPolice: "",
+      garantiesAssurance: "",
+      numeroTVA: "",
+      codeAPE: "",
+    },
+  });
+
+  const formeJuridique = formStep2.watch("formeJuridique");
+  const needsCapital =
+    formeJuridique &&
+    ["SARL", "EURL", "SAS", "SASU", "SA"].includes(formeJuridique);
 
   // Soumettre étape 1
   const onSubmitStep1 = async (data: RegisterStep1Data) => {
@@ -106,9 +139,15 @@ export default function RegisterPage() {
     }
   };
 
-  // Soumettre étape 2 (création finale)
-  const onSubmitStep2 = async (data: RegisterStep2Data) => {
-    if (!step1Data) {
+  // Soumettre étape 2
+const onSubmitStep2 = (data: RegisterStep2Data) => {
+    setStep2Data(data)
+    setStep(3)
+  };
+
+  // Soumettre étape 3 (création finale)
+  const onSubmitStep3 = async (data: RegisterStep3Data) => {
+    if (!step1Data || !step2Data) {
       setError("Données manquantes");
       return;
     }
@@ -117,9 +156,10 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      // Combiner les données des 2 étapes
+      // Combiner les données des 3 étapes
       const completeData = {
         ...step1Data,
+        ...step2Data,
         ...data,
       };
 
@@ -135,7 +175,7 @@ export default function RegisterPage() {
         // Inscription réussie, rediriger vers le tableau de bord dans un nouvel onglet
         router.push("/");
         window.open("/admin/dashboard", "_blank");
-        
+
         router.refresh();
       } else {
         setError(result.message || "Une erreur est survenue");
@@ -147,7 +187,7 @@ export default function RegisterPage() {
     }
   };
 
-  const progressValue = step === 1 ? 50 : 100;
+  const progressValue = (step / 3) * 100
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-violet-500 to-violet-600 flex items-center justify-center p-4">
@@ -161,35 +201,15 @@ export default function RegisterPage() {
               height={40}
             />
           </div>
-          <CardTitle className="text-2xl font-bold">
-            {step === 1 ? "Créer votre compte" : "Informations de votre garage"}
+          <CardTitle className="text-2xl">
+            {step === 1 && 'Créer votre compte'}
+            {step === 2 && 'Informations du garage'}
+            {step === 3 && 'Sécurité et conformité'}
           </CardTitle>
           <CardDescription>
-            {step === 1
-              ? "Commencez par vos informations personnelles"
-              : "Dernière étape avant de commencer !"}
+            Étape {step} sur 3
           </CardDescription>
-
-          {/* Progress bar */}
-          <div className="mt-6">
-            <div className="flex justify-between mb-2 text-sm">
-              <span
-                className={
-                  step === 1 ? "font-semibold text-blue-600" : "text-gray-500"
-                }
-              >
-                Étape 1/2
-              </span>
-              <span
-                className={
-                  step === 2 ? "font-semibold text-blue-600" : "text-gray-500"
-                }
-              >
-                Étape 2/2
-              </span>
-            </div>
-            <Progress value={progressValue} className="h-2" />
-          </div>
+          <Progress value={progressValue} className="mt-4" />
         </CardHeader>
 
         <CardContent>
@@ -307,9 +327,9 @@ export default function RegisterPage() {
                 </div>
 
                 {error && (
-                  <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
-                    {error}
-                  </div>
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
                 )}
 
                 <Button
@@ -340,25 +360,16 @@ export default function RegisterPage() {
                 onSubmit={formStep2.handleSubmit(onSubmitStep2)}
                 className="space-y-4"
               >
-                {/* Récap étape 1 */}
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-green-900">
-                        Compte utilisateur créé
-                      </p>
-                      <p className="text-sm text-green-700 mt-1">
-                        {step1Data?.prenom} {step1Data?.nom} •{" "}
-                        {step1Data?.email}
-                      </p>
-                    </div>
-                  </div>
+                <div className="bg-green-50 p-3 rounded-lg flex items-center gap-2 mb-4">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  <span className="text-sm">
+                    {step1Data?.prenom} {step1Data?.nom} • {step1Data?.email}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-2 mb-4">
                   <Building2 className="h-5 w-5 text-blue-600" />
-                  <h3 className="text-lg font-semibold">Votre garage</h3>
+                  <h3 className="font-semibold">Votre garage</h3>
                 </div>
 
                 <FormField
@@ -375,7 +386,35 @@ export default function RegisterPage() {
                   )}
                 />
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep2.control}
+                    name="formeJuridique"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Forme juridique *</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Choisir..." />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {FORMES_JURIDIQUES.map((forme) => (
+                              <SelectItem key={forme} value={forme}>
+                                {forme}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={formStep2.control}
                     name="siret"
@@ -384,25 +423,10 @@ export default function RegisterPage() {
                         <FormLabel>SIRET *</FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="12345678900012"
+                            placeholder="12345678901234"
                             maxLength={14}
                             {...field}
                           />
-                        </FormControl>
-                        <FormDescription>14 chiffres</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={formStep2.control}
-                    name="telephone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Téléphone *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="0123456789" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -410,26 +434,31 @@ export default function RegisterPage() {
                   />
                 </div>
 
-                <FormField
-                  control={formStep2.control}
-                  name="emailGarage"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email du garage *</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="contact@garage-dupont.fr"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        Visible sur vos factures et devis
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                {needsCapital && (
+                  <FormField
+                    control={formStep2.control}
+                    name="capitalSocial"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Capital social (€) *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            step="0.01"
+                            {...field}
+                            onChange={(e) =>
+                              field.onChange(parseFloat(e.target.value))
+                            }
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Obligatoire pour {formeJuridique}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
 
                 <FormField
                   control={formStep2.control}
@@ -439,7 +468,7 @@ export default function RegisterPage() {
                       <FormLabel>Adresse *</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="15 Rue de la République"
+                          placeholder="15 rue de la République"
                           {...field}
                         />
                       </FormControl>
@@ -448,7 +477,7 @@ export default function RegisterPage() {
                   )}
                 />
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={formStep2.control}
                     name="codePostal"
@@ -478,30 +507,187 @@ export default function RegisterPage() {
                   />
                 </div>
 
-                {error && (
-                  <div className="text-sm text-red-600 bg-red-50 p-3 rounded">
-                    {error}
-                  </div>
-                )}
+                <FormField
+                  control={formStep2.control}
+                  name="pays"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pays *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="France" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={formStep2.control}
+                    name="telephone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Téléphone *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="0123456789" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={formStep2.control}
+                    name="emailGarage"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email garage *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="contact@garage.fr"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 <div className="flex gap-3">
                   <Button
                     type="button"
                     variant="outline"
                     onClick={() => setStep(1)}
-                    disabled={loading}
                     className="flex-1"
                   >
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Retour
                   </Button>
+                  <Button type="submit" className="flex-1">
+                    Continuer
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          )}
 
+          {/* ÉTAPE 3 : Assurance & TVA */}
+          {step === 3 && (
+            <Form {...formStep3}>
+              <form
+                onSubmit={formStep3.handleSubmit(onSubmitStep3)}
+                className="space-y-4"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Shield className="h-5 w-5 text-blue-600" />
+                  <h3 className="font-semibold">Assurance & conformité</h3>
+                </div>
+
+                <Alert>
+                  <AlertDescription>
+                    Ces informations sont obligatoires pour les artisans et
+                    doivent figurer sur vos factures.
+                  </AlertDescription>
+                </Alert>
+
+                <FormField
+                  control={formStep3.control}
+                  name="assurancePro"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Nom de l'assureur *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="AXA Assurances" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={formStep3.control}
+                  name="numeroPolice"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Numéro de police *</FormLabel>
+                      <FormControl>
+                        <Input placeholder="POL123456789" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={formStep3.control}
+                  name="garantiesAssurance"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Garanties couvertes *</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="RC professionnelle, garantie décennale..."
+                          rows={3}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={formStep3.control}
+                  name="numeroTVA"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>N° TVA intracommunautaire</FormLabel>
+                      <FormControl>
+                        <Input placeholder="FR12345678900" {...field} />
+                      </FormControl>
+                      <FormDescription>Si assujetti à la TVA</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={formStep3.control}
+                  name="codeAPE"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Code APE/NAF</FormLabel>
+                      <FormControl>
+                        <Input placeholder="4520A" maxLength={5} {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Ex: 4520A pour réparation auto
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                <div className="flex gap-3">
                   <Button
-                    type="submit"
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(2)}
                     className="flex-1"
-                    size="lg"
-                    disabled={loading}
                   >
+                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    Retour
+                  </Button>
+                  <Button type="submit" className="flex-1" disabled={loading}>
                     {loading && (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     )}
