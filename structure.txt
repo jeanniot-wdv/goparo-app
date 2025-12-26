@@ -1,0 +1,113 @@
+┣ 📂prisma
+ ┃ ┣ 📂migrations
+ ┃ ┣ 📜schema.prisma
+ ┃ ┗ 📜seed.ts
+ ┣ 📂public
+ ┣ 📂src
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📂(public)
+ ┃ ┃ ┃ ┣ 📂actualites
+ ┃ ┃ ┃ ┣ 📂contact
+ ┃ ┃ ┃ ┗ 📂services
+ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┣ 📂clients
+ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂modifier
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂nouveau
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂configuration
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂dashboard
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂factures
+ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┣ 📂nouvelle
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┗ 📜layout.tsx
+ ┃ ┃ ┣ 📂api
+ ┃ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┃ ┣ 📂check-email
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┣ 📂logout
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┣ 📂me
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.tsx
+ ┃ ┃ ┃ ┃ ┗ 📂register
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂clients
+ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂factures
+ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂pdf
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂garages
+ ┃ ┃ ┃ ┃ ┗ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂test
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┗ 📂waitlist
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂register
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📜fonts.ts
+ ┃ ┃ ┣ 📜globals.css
+ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┣ 📂clients
+ ┃ ┃ ┃ ┃ ┗ 📜DeleteClientDialog.tsx
+ ┃ ┃ ┃ ┣ 📂configuration
+ ┃ ┃ ┃ ┃ ┣ 📜BillingTab.jsx
+ ┃ ┃ ┃ ┃ ┣ 📜ConfigurationForm.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜ConfigurationTabs.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜GeneralTab.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜ModulesTab.jsx
+ ┃ ┃ ┃ ┃ ┣ 📜WebsiteTab.jsx
+ ┃ ┃ ┃ ┃ ┗ 📜constants.tsx
+ ┃ ┃ ┃ ┣ 📂factures
+ ┃ ┃ ┃ ┃ ┣ 📜FactureForm.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜FacturePreview.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜LigneFactureItem.tsx
+ ┃ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┃ ┣ 📜Sidebar.tsx
+ ┃ ┃ ┃ ┗ 📜UserMenu.tsx
+ ┃ ┃ ┣ 📂landing
+ ┃ ┃ ┣ 📂site
+ ┃ ┃ ┣ 📂ui
+ ┃ ┣ 📂generated
+ ┃ ┃ ┗ 📂prisma
+ ┃ ┣ 📂hooks
+ ┃ ┃ ┣ 📜useGarageConfig.ts
+ ┃ ┃ ┗ 📜useUser.ts
+ ┃ ┣ 📂lib
+ ┃ ┃ ┣ 📂constants
+ ┃ ┃ ┃ ┗ 📜legal.ts
+ ┃ ┃ ┣ 📂types
+ ┃ ┃ ┃ ┣ 📜grecaptcha.d.ts
+ ┃ ┃ ┃ ┗ 📜index.ts
+ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┣ 📜facture.ts
+ ┃ ┃ ┃ ┗ 📜pdf.ts
+ ┃ ┃ ┣ 📂validations
+ ┃ ┃ ┃ ┣ 📜client.ts
+ ┃ ┃ ┃ ┣ 📜facture.ts
+ ┃ ┃ ┃ ┣ 📜garage.ts
+ ┃ ┃ ┃ ┗ 📜waitlist.ts
+ ┃ ┃ ┣ 📜auth.ts
+ ┃ ┃ ┣ 📜prisma.ts
+ ┃ ┃ ┗ 📜utils.ts
+ ┃ ┗ 📜middleware.ts

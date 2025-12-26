@@ -72,6 +72,7 @@ export async function POST(request: Request) {
       const garage = await tx.garage.create({
         data: {
           nom: data.nomGarage,
+          formeJuridique: data.formeJuridique,
           slug: finalSlug,
           siret: data.siret,
           adresse: data.adresse,
